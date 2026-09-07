@@ -71,11 +71,12 @@ export default function Profile() {
           <h3 className="font-bold text-neutral-900 text-sm mb-3 flex items-center gap-2">
             <Globe className="w-4 h-4 text-neutral-400" /> Language
           </h3>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             {[
               { id: 'en', label: 'English', preview: 'Snap & Sell' },
               { id: 'hi', label: 'हिंदी', preview: 'फोटो लें और बेचें' },
-              { id: 'mr', label: 'मराठी', preview: 'फोटो काढा आणि विका' }
+              { id: 'mr', label: 'मराठी', preview: 'फोटो काढा आणि विका' },
+              { id: 'ta', label: 'தமிழ்', preview: 'படம் எடுத்து விற்கவும்' }
             ].map(l => (
               <div 
                 key={l.id} 
