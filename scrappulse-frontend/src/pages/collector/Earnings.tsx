@@ -1,17 +1,30 @@
 import { useState } from 'react';
 import { IndianRupee, TrendingUp, AlertTriangle, ArrowUpRight, Search, FileDown, Info } from 'lucide-react';
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from 'recharts';
 import { cn } from '../../lib/utils';
 
-const earningsData = [
-  { date: 'Sep 1', amount: 1200 },
-  { date: 'Sep 2', amount: 900 },
-  { date: 'Sep 3', amount: 1500 },
-  { date: 'Sep 4', amount: 800 },
-  { date: 'Sep 5', amount: 2100 },
-  { date: 'Sep 6', amount: 1700 },
-  { date: 'Sep 7', amount: 2400 },
-];
+const earningsData = {
+  'Week': [
+    { label: 'Mon', current: 1200, previous: 1000 },
+    { label: 'Tue', current: 900, previous: 850 },
+    { label: 'Wed', current: 1500, previous: 1400 },
+    { label: 'Thu', current: 800, previous: 900 },
+    { label: 'Fri', current: 2100, previous: 1800 },
+    { label: 'Sat', current: 1700, previous: 1600 },
+    { label: 'Sun', current: 2400, previous: 2200 },
+  ],
+  'Month': [
+    { label: 'Week 1', current: 7500, previous: 6800 },
+    { label: 'Week 2', current: 8200, previous: 7100 },
+    { label: 'Week 3', current: 6900, previous: 7500 },
+    { label: 'Week 4', current: 9100, previous: 8000 },
+  ],
+  '3M': [
+    { label: 'Month 1', current: 31000, previous: 28000 },
+    { label: 'Month 2', current: 35000, previous: 32000 },
+    { label: 'Month 3', current: 38000, previous: 36000 },
+  ]
+};
 
 const LEDGER = [
   { id: 'TRX-1092', date: 'Sep 7', material: 'Copper Wire', weight: 15, recycler: 'EcoTech', price: 1020, status: 'Paid' },
@@ -101,23 +114,18 @@ export default function Earnings() {
           </div>
           <div className="h-48 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={earningsData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="colorAmount" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#00897B" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#00897B" stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
-                <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#737373' }} dy={10} />
+              <LineChart data={earningsData[filter as keyof typeof earningsData]} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
+                <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#737373' }} dy={10} />
                 <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#737373' }} />
                 <CartesianGrid vertical={false} stroke="#e5e5e5" strokeDasharray="3 3" />
                 <Tooltip 
                   contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                   labelStyle={{ fontSize: '12px', fontWeight: 'bold', color: '#171717' }}
-                  itemStyle={{ fontSize: '14px', fontWeight: 'bold', color: '#00897B' }}
                 />
-                <Area type="monotone" dataKey="amount" stroke="#00897B" strokeWidth={3} fillOpacity={1} fill="url(#colorAmount)" />
-              </AreaChart>
+                <Legend verticalAlign="top" height={36} wrapperStyle={{ fontSize: '12px', fontWeight: 'bold' }}/>
+                <Line type="monotone" dataKey="current" name="Current" stroke="#00897B" strokeWidth={3} dot={false} />
+                <Line type="monotone" dataKey="previous" name="Previous" stroke="#9ca3af" strokeWidth={2} strokeDasharray="5 5" dot={false} />
+              </LineChart>
             </ResponsiveContainer>
           </div>
         </div>
