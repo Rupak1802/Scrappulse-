@@ -27,7 +27,7 @@ export default function SecondLifeLayout() {
       
       {/* Top Nav (Shared) */}
       <header className="bg-white border-b border-border sticky top-0 z-40 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             
             {/* Logo & Mobile Menu Toggle */}
@@ -103,7 +103,7 @@ export default function SecondLifeLayout() {
       </header>
 
       {/* Main Layout Area */}
-      <div className="flex-1 max-w-7xl mx-auto w-full flex items-start">
+      <div className="flex-1 w-full px-4 sm:px-6 lg:px-8 flex items-start">
         
         {/* Desktop Left Rail */}
         <aside className="hidden lg:flex w-64 shrink-0 flex-col gap-6 py-8 pr-8 border-r border-border h-[calc(100vh-64px)] sticky top-16 overflow-y-auto">
