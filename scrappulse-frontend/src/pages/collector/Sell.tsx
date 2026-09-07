@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Camera, Image as ImageIcon, Info, RotateCcw, ChevronRight, AlertTriangle, Mic, Scale, ChevronLeft, CheckCircle2 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Camera, Image as ImageIcon, Info, RotateCcw, ChevronRight, AlertTriangle, Mic, Scale, ChevronLeft, CheckCircle2, Sparkles, TrendingUp } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { cn } from '../../lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -53,247 +53,250 @@ export default function Sell() {
   }[step];
 
   return (
-    <div className="flex flex-col h-full bg-neutral-50 relative pb-20">
-      {/* Header & Progress */}
-      <div className="bg-white px-4 py-3 border-b border-border sticky top-0 z-10">
-        <div className="flex items-center justify-between mb-3">
-          <button onClick={() => step === 'capture' ? navigate(-1) : prevStep(step)} className="p-1 -ml-1 text-neutral-500 hover:text-neutral-900">
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          <span className="font-semibold text-neutral-900">New Sale</span>
-          <button className="text-sm font-medium text-teal hover:underline">Save Draft</button>
+    <div className="flex flex-col min-h-[calc(100vh-64px)] lg:min-h-0 bg-neutral-50 lg:bg-transparent lg:py-8 lg:px-4">
+      <div className="flex flex-col flex-1 lg:flex-none lg:max-w-2xl lg:mx-auto w-full lg:bg-white lg:border lg:border-border lg:rounded-3xl lg:shadow-xl lg:overflow-hidden relative bg-neutral-50 pb-20 lg:pb-0">
+        
+        {/* Header & Progress */}
+        <div className="bg-white px-4 py-3 lg:p-6 border-b border-border sticky top-0 z-30 shadow-sm">
+          <div className="flex items-center justify-between mb-4">
+            <button onClick={() => step === 'capture' ? navigate(-1) : prevStep(step)} className="p-2 -ml-2 text-neutral-500 hover:text-neutral-900 bg-neutral-100 lg:bg-white rounded-full transition-colors">
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <span className="font-black text-neutral-900 lg:text-lg">New Sale Estimate</span>
+            <button className="text-sm font-bold text-teal hover:underline bg-teal/10 px-3 py-1.5 rounded-full">Save Draft</button>
+          </div>
+          <div className="h-2 bg-neutral-100 rounded-full overflow-hidden w-full relative">
+            <motion.div 
+              className="absolute top-0 left-0 bottom-0 bg-gradient-to-r from-teal to-green-500 rounded-full shadow-[0_0_10px_rgba(20,184,166,0.5)]"
+              initial={{ width: 0 }}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            />
+          </div>
         </div>
-        <div className="h-1.5 bg-neutral-100 rounded-full overflow-hidden w-full">
-          <motion.div 
-            className="h-full bg-teal"
-            initial={{ width: 0 }}
-            animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.3 }}
-          />
-        </div>
-      </div>
 
-      <div className="flex-1 overflow-y-auto p-4">
-        <AnimatePresence mode="wait">
-          {step === 'capture' && (
-            <motion.div key="capture" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-              <div className="mb-4">
-                <h2 className="text-xl font-bold text-neutral-900">Take a photo</h2>
-                <p className="text-sm text-neutral-500 flex items-center gap-1 mt-1">
-                  Clear photos get better AI estimates <Info className="w-3.5 h-3.5" />
-                </p>
-              </div>
-              
-              <div className="aspect-[3/4] bg-neutral-900 rounded-2xl relative overflow-hidden flex items-center justify-center mb-4">
-                {/* Mock Camera Viewfinder */}
-                <div className="absolute inset-4 border-2 border-white/20 rounded-lg pointer-events-none" />
-                <div className="absolute inset-1/3 border border-white/40 pointer-events-none flex items-center justify-center">
-                  <div className="w-1 h-1 bg-white rounded-full" />
+        <div className="flex-1 overflow-y-auto p-4 lg:p-8 relative">
+          <AnimatePresence mode="wait">
+            {step === 'capture' && (
+              <motion.div key="capture" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                <div className="mb-6">
+                  <h2 className="text-2xl font-black text-neutral-900">Take a photo</h2>
+                  <p className="text-sm font-medium text-neutral-500 flex items-center gap-1 mt-1">
+                    Clear photos get better AI estimates <Info className="w-4 h-4 text-teal" />
+                  </p>
                 </div>
                 
-                <div className="absolute bottom-6 left-0 right-0 flex justify-center items-center gap-8">
-                  <button className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-md">
-                    <ImageIcon className="w-5 h-5 text-white" />
-                  </button>
-                  <button onClick={handleCapture} className="w-16 h-16 rounded-full border-4 border-white/50 flex items-center justify-center">
-                    <div className="w-12 h-12 bg-white rounded-full transition-transform active:scale-95" />
-                  </button>
-                  <button className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-md">
-                    <RotateCcw className="w-5 h-5 text-white" />
-                  </button>
-                </div>
-              </div>
-
-              {photos.length > 0 && (
-                <div className="flex gap-2 overflow-x-auto pb-2 snap-x">
-                  {photos.map((src, i) => (
-                    <div key={i} className="w-16 h-16 rounded-lg bg-neutral-200 shrink-0 snap-start overflow-hidden border-2 border-white shadow-sm relative">
-                      <img src={src} alt="Captured" className="w-full h-full object-cover" />
-                      <button onClick={() => setPhotos(photos.filter((_, idx) => idx !== i))} className="absolute top-0.5 right-0.5 bg-black/50 p-0.5 rounded-full">
-                        <X className="w-3 h-3 text-white" />
-                      </button>
-                    </div>
-                  ))}
-                  {photos.length < 3 && (
-                    <button onClick={handleCapture} className="w-16 h-16 rounded-lg border-2 border-dashed border-border flex items-center justify-center text-neutral-400 shrink-0 snap-start">
-                      <Camera className="w-5 h-5" />
+                <div className="aspect-[3/4] sm:aspect-square lg:aspect-video bg-neutral-900 rounded-3xl relative overflow-hidden flex items-center justify-center mb-6 shadow-inner border border-neutral-800">
+                  {/* Mock Camera Viewfinder */}
+                  <div className="absolute inset-4 lg:inset-8 border-2 border-white/20 rounded-2xl pointer-events-none" />
+                  <div className="absolute inset-1/3 border border-white/40 pointer-events-none flex items-center justify-center rounded-lg">
+                    <div className="w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_10px_white]" />
+                  </div>
+                  
+                  <div className="absolute bottom-6 left-0 right-0 flex justify-center items-center gap-8 lg:gap-12">
+                    <button className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-md hover:bg-white/20 transition-colors">
+                      <ImageIcon className="w-6 h-6 text-white" />
                     </button>
-                  )}
-                </div>
-              )}
-            </motion.div>
-          )}
-
-          {step === 'ai-result' && (
-            <motion.div key="ai" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-              {isAnalyzing ? (
-                <div className="flex flex-col items-center justify-center py-20 text-center space-y-6">
-                  <div className="relative w-24 h-24">
-                    <div className="absolute inset-0 border-4 border-neutral-100 rounded-full" />
-                    <div className="absolute inset-0 border-4 border-teal rounded-full border-t-transparent animate-spin" />
-                    <Sparkles className="w-8 h-8 text-teal absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg">AI is analyzing...</h3>
-                    <p className="text-sm text-neutral-500 mt-1">Identifying material type and grade</p>
+                    <button onClick={handleCapture} className="w-20 h-20 rounded-full border-4 border-white/50 flex items-center justify-center hover:border-white transition-colors group">
+                      <div className="w-14 h-14 bg-white rounded-full transition-transform group-active:scale-90" />
+                    </button>
+                    <button className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-md hover:bg-white/20 transition-colors">
+                      <RotateCcw className="w-6 h-6 text-white" />
+                    </button>
                   </div>
                 </div>
-              ) : (
-                <div>
-                   <div className="mb-6">
-                    <h2 className="text-xl font-bold text-neutral-900">Analysis Complete</h2>
-                    <p className="text-sm text-neutral-500 mt-1">Confirm or edit the material</p>
-                  </div>
 
-                  <div className="bg-white rounded-xl border border-border p-1 overflow-hidden shadow-sm mb-6">
-                    <img src={photos[0] || "https://picsum.photos/seed/copper/400/200"} className="w-full h-40 object-cover rounded-lg" alt="Analyzed" />
+                {photos.length > 0 && (
+                  <div className="flex gap-3 overflow-x-auto pb-2 snap-x hide-scrollbar">
+                    {photos.map((src, i) => (
+                      <div key={i} className="w-20 h-20 lg:w-24 lg:h-24 rounded-xl bg-neutral-200 shrink-0 snap-start overflow-hidden border-2 border-white shadow-md relative">
+                        <img src={src} alt="Captured" className="w-full h-full object-cover" />
+                        <button onClick={() => setPhotos(photos.filter((_, idx) => idx !== i))} className="absolute top-1 right-1 bg-black/60 p-1 rounded-full backdrop-blur-sm hover:bg-red-500 transition-colors">
+                          <X className="w-4 h-4 text-white" />
+                        </button>
+                      </div>
+                    ))}
+                    {photos.length < 3 && (
+                      <button onClick={handleCapture} className="w-20 h-20 lg:w-24 lg:h-24 rounded-xl border-2 border-dashed border-border bg-neutral-50 hover:bg-neutral-100 flex items-center justify-center text-neutral-400 shrink-0 snap-start transition-colors">
+                        <Camera className="w-6 h-6" />
+                      </button>
+                    )}
                   </div>
+                )}
+              </motion.div>
+            )}
 
-                  <div className="space-y-4">
+            {step === 'ai-result' && (
+              <motion.div key="ai" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                {isAnalyzing ? (
+                  <div className="flex flex-col items-center justify-center py-32 lg:py-40 text-center space-y-6">
+                    <div className="relative w-32 h-32">
+                      <div className="absolute inset-0 border-4 border-neutral-100 rounded-full" />
+                      <div className="absolute inset-0 border-4 border-teal rounded-full border-t-transparent animate-spin" />
+                      <Sparkles className="w-10 h-10 text-teal absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
+                    </div>
                     <div>
-                      <label className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-1.5 block">Detected Material</label>
-                      <select 
-                        value={material} 
-                        onChange={(e) => setMaterial(e.target.value)}
-                        className="w-full bg-white border border-border rounded-lg p-3.5 font-medium text-neutral-900 appearance-none focus:outline-none focus:ring-2 focus:ring-teal/50"
-                      >
-                        <option>Copper Wire (Insulated)</option>
-                        <option>Copper Wire (Bare)</option>
-                        <option>Mixed Aluminum</option>
-                        <option>Printed Circuit Boards</option>
-                      </select>
+                      <h3 className="font-black text-2xl text-neutral-900">AI is analyzing...</h3>
+                      <p className="text-neutral-500 mt-2 font-medium">Identifying material type and grade</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="mb-6 lg:mb-8">
+                      <h2 className="text-2xl font-black text-neutral-900">Analysis Complete</h2>
+                      <p className="text-sm font-medium text-neutral-500 mt-1">Confirm or edit the material</p>
                     </div>
 
-                    <div className="flex gap-2">
-                      <div className="flex-1 bg-green-50 border border-green-100 rounded-lg p-3 flex flex-col items-center justify-center text-center">
-                        <CheckCircle2 className="w-5 h-5 text-green-600 mb-1" />
-                        <span className="text-xs font-medium text-green-800">94% Confidence</span>
+                    <div className="bg-white rounded-2xl border border-border p-1.5 overflow-hidden shadow-sm mb-8">
+                      <img src={photos[0] || "https://picsum.photos/seed/copper/600/300"} className="w-full h-48 lg:h-64 object-cover rounded-xl" alt="Analyzed" />
+                    </div>
+
+                    <div className="space-y-6">
+                      <div>
+                        <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2 block pl-1">Detected Material</label>
+                        <select 
+                          value={material} 
+                          onChange={(e) => setMaterial(e.target.value)}
+                          className="w-full bg-neutral-50 border border-border rounded-xl p-4 font-bold text-neutral-900 appearance-none focus:outline-none focus:ring-2 focus:ring-teal/50 shadow-sm cursor-pointer"
+                        >
+                          <option>Copper Wire (Insulated)</option>
+                          <option>Copper Wire (Bare)</option>
+                          <option>Mixed Aluminum</option>
+                          <option>Printed Circuit Boards</option>
+                        </select>
                       </div>
-                      <div className="flex-1 bg-amber-50 border border-amber-100 rounded-lg p-3 flex flex-col items-center justify-center text-center relative group">
-                        <AlertTriangle className="w-5 h-5 text-amber-600 mb-1" />
-                        <span className="text-xs font-medium text-amber-800">Minor Hazard</span>
-                        {/* Inline Tooltip Mock */}
-                        <div className="hidden group-hover:block absolute bottom-full mb-2 bg-neutral-900 text-white text-xs p-2 rounded w-48 shadow-xl z-20 pointer-events-none text-left">
-                          Insulation may contain PVC. Do not burn.
+
+                      <div className="flex gap-3">
+                        <div className="flex-1 bg-green-50 border border-green-200 rounded-xl p-4 flex flex-col items-center justify-center text-center shadow-sm">
+                          <CheckCircle2 className="w-6 h-6 text-green-600 mb-2" />
+                          <span className="text-sm font-bold text-green-800">94% Confidence</span>
+                        </div>
+                        <div className="flex-1 bg-amber-50 border border-amber-200 rounded-xl p-4 flex flex-col items-center justify-center text-center relative group shadow-sm">
+                          <AlertTriangle className="w-6 h-6 text-amber-600 mb-2" />
+                          <span className="text-sm font-bold text-amber-800">Minor Hazard</span>
+                          <div className="hidden group-hover:block absolute bottom-full mb-2 bg-neutral-900 text-white text-xs p-3 rounded-lg w-56 shadow-xl z-20 pointer-events-none text-left">
+                            Insulation may contain PVC. Do not burn.
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </motion.div>
-          )}
+                )}
+              </motion.div>
+            )}
 
-          {step === 'weight' && (
-            <motion.div key="weight" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-              <div className="mb-6">
-                <h2 className="text-xl font-bold text-neutral-900">How much do you have?</h2>
-                <p className="text-sm text-neutral-500 mt-1">Estimate the weight of {material}</p>
-              </div>
-
-              <div className="bg-white border border-border rounded-2xl p-6 shadow-sm mb-6 text-center">
-                <div className="flex items-baseline justify-center gap-1 mb-8">
-                  <span className="text-5xl font-black text-neutral-900 tracking-tighter">{weight}</span>
-                  <span className="text-xl font-bold text-neutral-400">kg</span>
+            {step === 'weight' && (
+              <motion.div key="weight" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                <div className="mb-8">
+                  <h2 className="text-2xl font-black text-neutral-900">How much do you have?</h2>
+                  <p className="text-sm font-medium text-neutral-500 mt-1">Estimate the weight of <span className="font-bold text-neutral-700">{material}</span></p>
                 </div>
 
-                <input 
-                  type="range" 
-                  min="1" max="100" 
-                  value={weight} 
-                  onChange={(e) => setWeight(parseInt(e.target.value))}
-                  className="w-full accent-teal h-2 bg-neutral-100 rounded-full appearance-none outline-none" 
-                />
-                <div className="flex justify-between text-xs font-medium text-neutral-400 mt-2 px-1">
-                  <span>1kg</span>
-                  <span>100kg+</span>
-                </div>
-              </div>
-
-              <div className="flex justify-center">
-                <button 
-                  onClick={() => {
-                    setIsListening(!isListening);
-                    if (!isListening) setTimeout(() => { setWeight(25); setIsListening(false); }, 3000);
-                  }}
-                  className={cn(
-                    "flex items-center gap-3 px-6 py-4 rounded-full border-2 transition-all",
-                    isListening ? "border-teal bg-teal/5 shadow-lg shadow-teal/10" : "border-border bg-white"
-                  )}
-                >
-                  <div className={cn("p-2 rounded-full", isListening ? "bg-teal text-white animate-pulse" : "bg-neutral-100 text-neutral-600")}>
-                    <Mic className="w-5 h-5" />
+                <div className="bg-white border border-border rounded-3xl p-8 lg:p-12 shadow-sm mb-8 text-center relative overflow-hidden">
+                  <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none"><Scale className="w-32 h-32" /></div>
+                  <div className="flex items-baseline justify-center gap-1 mb-10 relative z-10">
+                    <span className="text-6xl lg:text-7xl font-black text-neutral-900 tracking-tighter">{weight}</span>
+                    <span className="text-2xl font-bold text-neutral-400">kg</span>
                   </div>
-                  <div className="flex flex-col items-start">
-                    <span className="text-sm font-bold text-neutral-900">{isListening ? "Listening..." : "Tap to speak"}</span>
-                    <span className="text-xs text-neutral-500 font-medium">Say "Pachis kilo"</span>
+
+                  <input 
+                    type="range" 
+                    min="1" max="100" 
+                    value={weight} 
+                    onChange={(e) => setWeight(parseInt(e.target.value))}
+                    className="w-full accent-teal h-3 bg-neutral-100 rounded-full appearance-none outline-none relative z-10 cursor-pointer shadow-inner" 
+                  />
+                  <div className="flex justify-between text-xs font-bold text-neutral-400 mt-3 px-1 relative z-10">
+                    <span>1kg</span>
+                    <span>100kg+</span>
                   </div>
-                  {isListening && (
-                    <div className="flex gap-1 ml-4 items-center h-6">
-                      {[1,2,3,4,5].map(i => (
-                        <motion.div key={i} animate={{ height: [4, 16, 4] }} transition={{ repeat: Infinity, duration: 0.5, delay: i * 0.1 }} className="w-1 bg-teal rounded-full" />
-                      ))}
+                </div>
+
+                <div className="flex justify-center">
+                  <button 
+                    onClick={() => {
+                      setIsListening(!isListening);
+                      if (!isListening) setTimeout(() => { setWeight(25); setIsListening(false); }, 3000);
+                    }}
+                    className={cn(
+                      "flex items-center gap-4 px-8 py-5 rounded-full border-2 transition-all shadow-sm hover:shadow-md",
+                      isListening ? "border-teal bg-teal/5" : "border-border bg-white hover:border-neutral-300"
+                    )}
+                  >
+                    <div className={cn("p-3 rounded-full transition-colors", isListening ? "bg-teal text-white animate-pulse" : "bg-neutral-100 text-neutral-600")}>
+                      <Mic className="w-6 h-6" />
                     </div>
-                  )}
-                </button>
-              </div>
-            </motion.div>
-          )}
-
-          {step === 'valuation' && (
-            <motion.div key="val" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-              <div className="mb-6">
-                <h2 className="text-xl font-bold text-neutral-900">Estimated Value</h2>
-                <p className="text-sm text-neutral-500 mt-1">Based on current market rates in your zone</p>
-              </div>
-
-              <div className="bg-navy rounded-2xl p-6 text-white text-center shadow-lg mb-6 relative overflow-hidden">
-                <div className="absolute -top-12 -right-12 w-40 h-40 bg-white/5 rounded-full blur-2xl pointer-events-none" />
-                <div className="absolute -bottom-12 -left-12 w-40 h-40 bg-teal/20 rounded-full blur-2xl pointer-events-none" />
-                
-                <h3 className="text-white/70 text-sm font-medium uppercase tracking-wider mb-2 relative z-10">Fair Range</h3>
-                <div className="flex items-center justify-center gap-2 mb-4 relative z-10">
-                  <span className="text-4xl font-black">₹4,200</span>
-                  <span className="text-white/50 text-xl font-medium">-</span>
-                  <span className="text-4xl font-black text-white/90">₹4,800</span>
+                    <div className="flex flex-col items-start text-left">
+                      <span className="text-base font-black text-neutral-900">{isListening ? "Listening..." : "Tap to speak"}</span>
+                      <span className="text-sm text-neutral-500 font-medium">Say "Pachis kilo"</span>
+                    </div>
+                    {isListening && (
+                      <div className="flex gap-1.5 ml-6 items-center h-8">
+                        {[1,2,3,4,5].map(i => (
+                          <motion.div key={i} animate={{ height: [6, 24, 6] }} transition={{ repeat: Infinity, duration: 0.5, delay: i * 0.1 }} className="w-1.5 bg-teal rounded-full" />
+                        ))}
+                      </div>
+                    )}
+                  </button>
                 </div>
-                
-                <div className="bg-white/10 rounded-lg p-3 inline-flex items-center gap-2 backdrop-blur-sm border border-white/10 relative z-10">
-                  <TrendingUp className="w-4 h-4 text-green-400" />
-                  <span className="text-xs font-medium">+5% vs last week</span>
-                </div>
-              </div>
+              </motion.div>
+            )}
 
-              <div className="bg-white border border-border rounded-xl p-4 shadow-sm mb-6">
-                <h3 className="text-sm font-semibold text-neutral-900 mb-3">Market Position</h3>
-                <div className="relative h-2 bg-neutral-100 rounded-full w-full">
-                  <div className="absolute left-1/4 right-1/4 h-full bg-teal/20 rounded-full" />
-                  <div className="absolute left-[35%] w-3 h-3 bg-teal border-2 border-white rounded-full top-1/2 -translate-y-1/2 shadow-sm z-10" />
+            {step === 'valuation' && (
+              <motion.div key="val" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+                <div className="mb-8">
+                  <h2 className="text-2xl font-black text-neutral-900">Estimated Value</h2>
+                  <p className="text-sm font-medium text-neutral-500 mt-1">Based on current market rates in your zone</p>
                 </div>
-                <div className="flex justify-between text-xs font-medium mt-2">
-                  <span className="text-red-500">Low (₹3.5k)</span>
-                  <span className="text-teal font-bold bg-teal/10 px-2 py-0.5 rounded">Fair</span>
-                  <span className="text-green-600">High (₹5k+)</span>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
 
-      {/* Footer CTA */}
-      <div className="fixed bottom-16 left-0 right-0 bg-white p-4 border-t border-border z-20">
-        <button 
-          onClick={() => {
-            if (step === 'valuation') navigate('/collector/recyclers');
-            else if (photos.length > 0) nextStep(step);
-          }}
-          disabled={step === 'capture' && photos.length === 0}
-          className="w-full bg-navy disabled:bg-neutral-200 disabled:text-neutral-400 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.98]"
-        >
-          {step === 'valuation' ? 'Compare Recyclers' : 'Continue'}
-          <ChevronRight className="w-5 h-5" />
-        </button>
+                <div className="bg-gradient-to-br from-navy to-slate-900 rounded-3xl p-8 lg:p-10 text-white text-center shadow-2xl mb-8 relative overflow-hidden">
+                  <div className="absolute -top-16 -right-16 w-56 h-56 bg-teal/20 rounded-full blur-3xl pointer-events-none" />
+                  <div className="absolute -bottom-16 -left-16 w-56 h-56 bg-green-500/20 rounded-full blur-3xl pointer-events-none" />
+                  
+                  <h3 className="text-white/70 text-sm font-bold uppercase tracking-widest mb-4 relative z-10">Fair Range</h3>
+                  <div className="flex items-center justify-center gap-3 mb-6 relative z-10">
+                    <span className="text-5xl lg:text-6xl font-black text-white">₹4,200</span>
+                    <span className="text-white/40 text-3xl font-medium">-</span>
+                    <span className="text-5xl lg:text-6xl font-black text-white/90">₹4,800</span>
+                  </div>
+                  
+                  <div className="bg-white/10 rounded-full px-4 py-2 inline-flex items-center gap-2 backdrop-blur-md border border-white/20 relative z-10 shadow-sm">
+                    <TrendingUp className="w-5 h-5 text-green-400" />
+                    <span className="text-sm font-bold text-white tracking-wide">+5% vs last week</span>
+                  </div>
+                </div>
+
+                <div className="bg-white border border-border rounded-2xl p-6 shadow-sm mb-6">
+                  <h3 className="text-sm font-bold text-neutral-900 mb-4 uppercase tracking-wider">Market Position</h3>
+                  <div className="relative h-3 bg-neutral-100 rounded-full w-full shadow-inner">
+                    <div className="absolute left-1/4 right-1/4 h-full bg-gradient-to-r from-teal/40 to-teal/40 rounded-full" />
+                    <div className="absolute left-[35%] w-4 h-4 bg-teal border-2 border-white rounded-full top-1/2 -translate-y-1/2 shadow-md z-10 ring-4 ring-teal/20" />
+                  </div>
+                  <div className="flex justify-between text-xs font-black uppercase tracking-wider mt-4">
+                    <span className="text-red-500">Low (₹3.5k)</span>
+                    <span className="text-teal bg-teal/10 px-3 py-1 rounded-full border border-teal/20">Fair</span>
+                    <span className="text-green-600">High (₹5k+)</span>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Footer CTA */}
+        <div className="fixed bottom-[64px] lg:sticky lg:bottom-0 left-0 right-0 lg:left-auto lg:right-auto bg-white/90 backdrop-blur-md p-4 lg:p-6 border-t border-border z-40 lg:rounded-b-3xl">
+          <button 
+            onClick={() => {
+              if (step === 'valuation') navigate('/collector/recyclers');
+              else if (photos.length > 0) nextStep(step);
+            }}
+            disabled={step === 'capture' && photos.length === 0}
+            className="w-full bg-navy disabled:bg-neutral-200 disabled:text-neutral-400 text-white font-black text-lg py-4 lg:py-5 rounded-2xl flex items-center justify-center gap-2 shadow-lg transition-all hover:bg-navy/90 hover:shadow-xl active:scale-[0.98]"
+          >
+            {step === 'valuation' ? 'Compare Recyclers' : 'Continue'}
+            <ChevronRight className="w-6 h-6" />
+          </button>
+        </div>
       </div>
     </div>
   );
