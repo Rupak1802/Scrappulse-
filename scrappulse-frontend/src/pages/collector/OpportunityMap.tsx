@@ -3,12 +3,23 @@ import { Map, MapPin, Zap, ChevronLeft, Search, Navigation } from 'lucide-react'
 import { useNavigate } from 'react-router-dom';
 import { cn } from '../../lib/utils';
 import { ResponsiveContainer, RadialBarChart, RadialBar } from 'recharts';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+
+// Fix for default marker icons in leaflet
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
 
 const ZONES = [
-  { id: 'z1', name: 'MIDC Industrial Area', material: 'Copper & PCBs', expectedWeight: '200-500kg', expectedPrice: '₹68-72', distance: 3.2, score: 95, topPick: true },
-  { id: 'z2', name: 'Andheri East Commercial', material: 'Mixed E-Waste', expectedWeight: '50-100kg', expectedPrice: '₹45-50', distance: 1.5, score: 72, topPick: false },
-  { id: 'z3', name: 'Powai Residential', material: 'Home Appliances', expectedWeight: '100-150kg', expectedPrice: '₹25-30', distance: 4.8, score: 65, topPick: false },
-  { id: 'z4', name: 'SEEPZ Tech Park', material: 'Servers & Cables', expectedWeight: '500kg+', expectedPrice: '₹80-85', distance: 6.1, score: 88, topPick: false },
+  { id: 'z1', name: 'MIDC Industrial Area', material: 'Copper & PCBs', expectedWeight: '200-500kg', expectedPrice: '₹68-72', distance: 3.2, score: 95, topPick: true, lat: 19.125, lng: 72.875 },
+  { id: 'z2', name: 'Andheri East Commercial', material: 'Mixed E-Waste', expectedWeight: '50-100kg', expectedPrice: '₹45-50', distance: 1.5, score: 72, topPick: false, lat: 19.113, lng: 72.869 },
+  { id: 'z3', name: 'Powai Residential', material: 'Home Appliances', expectedWeight: '100-150kg', expectedPrice: '₹25-30', distance: 4.8, score: 65, topPick: false, lat: 19.119, lng: 72.906 },
+  { id: 'z4', name: 'SEEPZ Tech Park', material: 'Servers & Cables', expectedWeight: '500kg+', expectedPrice: '₹80-85', distance: 6.1, score: 88, topPick: false, lat: 19.123, lng: 72.880 },
 ];
 
 export default function OpportunityMap() {
@@ -46,29 +57,22 @@ export default function OpportunityMap() {
       </div>
 
       <div className="p-4 space-y-4">
-        {/* Stylized Map View */}
-        <div className="h-48 w-full bg-neutral-200 rounded-xl border border-border relative overflow-hidden flex items-center justify-center shadow-inner">
-          <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/black-scales.png")' }}></div>
-          
-          <div className="absolute top-[20%] left-[30%] group">
-            <div className="w-4 h-4 bg-teal rounded-full shadow-[0_0_15px_rgba(0,137,123,0.8)] animate-pulse" />
-            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 bg-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow-sm opacity-0 group-hover:opacity-100">MIDC</div>
-          </div>
-
-          <div className="absolute bottom-[30%] right-[20%] group">
-            <div className="w-6 h-6 bg-amber-500 rounded-full shadow-[0_0_20px_rgba(245,158,11,0.8)] border-2 border-white flex items-center justify-center">
-               <Zap className="w-3 h-3 text-white fill-white" />
-            </div>
-            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 bg-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow-sm opacity-100">SEEPZ</div>
-          </div>
-          
-          <div className="absolute bottom-[20%] left-[40%] w-3 h-3 bg-neutral-500 rounded-full border border-white" />
-
-          {/* User Location */}
-          <div className="absolute top-[50%] left-[50%] flex flex-col items-center z-10">
-            <MapPin className="w-6 h-6 text-blue-600 fill-blue-600" />
-            <div className="w-12 h-12 bg-blue-500/20 rounded-full absolute -top-3 animate-ping" />
-          </div>
+        {/* Realistic Map View */}
+        <div className="h-48 w-full bg-neutral-200 rounded-xl border border-border relative overflow-hidden flex items-center justify-center shadow-inner z-10">
+          <MapContainer center={[19.120, 72.870]} zoom={13} style={{ height: '100%', width: '100%' }} zoomControl={false}>
+            <TileLayer
+              url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+            {ZONES.map(zone => (
+              <Marker key={zone.id} position={[zone.lat, zone.lng]}>
+                <Popup>
+                  <div className="font-bold text-neutral-900">{zone.name}</div>
+                  <div className="text-xs text-teal font-medium">{zone.material}</div>
+                </Popup>
+              </Marker>
+            ))}
+          </MapContainer>
         </div>
 
         {/* Zone Cards */}
