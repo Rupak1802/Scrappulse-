@@ -96,7 +96,7 @@ export default function OpportunityMap() {
                 <div className="w-10 h-10 relative shrink-0">
                   <ResponsiveContainer width="100%" height="100%">
                     <RadialBarChart cx="50%" cy="50%" innerRadius="70%" outerRadius="100%" barSize={4} data={[{value: zone.score, fill: zone.score > 80 ? '#F59E0B' : '#00897B'}]} startAngle={180} endAngle={-180}>
-                      <RadialBar background clockWise dataKey="value" cornerRadius={10} />
+                      <RadialBar background dataKey="value" cornerRadius={10} />
                     </RadialBarChart>
                   </ResponsiveContainer>
                   <div className="absolute inset-0 flex items-center justify-center font-bold text-[10px]">{zone.score}</div>

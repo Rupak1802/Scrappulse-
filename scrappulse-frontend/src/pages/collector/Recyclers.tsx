@@ -105,7 +105,7 @@ export default function Recyclers() {
                     <div className="w-10 h-10 absolute -top-1 opacity-20">
                       <ResponsiveContainer width="100%" height="100%">
                         <RadialBarChart cx="50%" cy="50%" innerRadius="70%" outerRadius="100%" barSize={4} data={[{value: recycler.reliability, fill: '#00897B'}]} startAngle={90} endAngle={-270}>
-                          <RadialBar background clockWise dataKey="value" cornerRadius={10} />
+                          <RadialBar background dataKey="value" cornerRadius={10} />
                         </RadialBarChart>
                       </ResponsiveContainer>
                     </div>
