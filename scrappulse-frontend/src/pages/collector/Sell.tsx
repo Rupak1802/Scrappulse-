@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Camera, Image as ImageIcon, Info, RotateCcw, ChevronRight, AlertTriangle, Mic, Scale, ChevronLeft, CheckCircle2, Sparkles, TrendingUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '../../lib/utils';
@@ -21,9 +21,22 @@ export default function Sell() {
   const [weight, setWeight] = useState(15);
   const [isListening, setIsListening] = useState(false);
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const handleCapture = () => {
     if (photos.length < 3) {
-      setPhotos([...photos, `https://picsum.photos/seed/${Math.random()}/200/200`]);
+      fileInputRef.current?.click();
+    }
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPhotos([...photos, reader.result as string]);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -85,6 +98,7 @@ export default function Sell() {
                     Clear photos get better AI estimates <Info className="w-4 h-4 text-teal" />
                   </p>
                 </div>
+                <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleFileUpload} />
                 
                 <div className="aspect-[3/4] sm:aspect-square lg:aspect-video bg-neutral-900 rounded-3xl relative overflow-hidden flex items-center justify-center mb-6 shadow-inner border border-neutral-800">
                   {/* Mock Camera Viewfinder */}
