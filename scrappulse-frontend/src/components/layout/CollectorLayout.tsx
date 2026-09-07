@@ -31,7 +31,11 @@ export default function CollectorLayout() {
   ];
 
   return (
-    <div className="flex h-screen bg-neutral-50 overflow-hidden relative">
+    <div className="flex h-screen bg-slate-50 overflow-hidden relative font-sans">
+      
+      {/* Animated Background Blobs for Glassmorphism */}
+      <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] max-w-[800px] max-h-[800px] rounded-full bg-teal-400/20 blur-[120px] pointer-events-none mix-blend-multiply opacity-70" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] max-w-[800px] max-h-[800px] rounded-full bg-emerald-400/20 blur-[120px] pointer-events-none mix-blend-multiply opacity-70" />
       
       {/* Desktop Sidebar (hidden on mobile) */}
       <aside className="hidden lg:flex w-64 flex-col bg-white border-r border-border h-full relative z-20">
