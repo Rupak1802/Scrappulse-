@@ -3,7 +3,7 @@ import {
   Activity, ArrowRightLeft, Truck, Link2, AlertTriangle, 
   ShieldCheck, MonitorSmartphone, FileText, Search, 
   Calendar, Bell, ChevronLeft, ChevronRight, Settings, 
-  LogOut, Command, Zap, RefreshCcw
+  LogOut, Command, Zap, RefreshCcw, Menu
 } from 'lucide-react';
 import { useAppStore } from '../../store';
 import { cn } from '../../lib/utils';
@@ -26,13 +26,22 @@ export default function DashboardLayout() {
   }, []);
 
   return (
-    <div className="flex h-screen bg-neutral-50 overflow-hidden font-sans text-neutral-900">
+    <div className="flex h-[100dvh] bg-neutral-50 overflow-hidden font-sans text-neutral-900">
       
+      {/* Mobile Sidebar Backdrop */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden" 
+          onClick={toggleSidebar} 
+        />
+      )}
+
       {/* Sidebar */}
       <aside 
         className={cn(
-          "bg-navy text-white flex flex-col transition-all duration-300 ease-in-out z-20 shadow-xl",
-          isSidebarOpen ? "w-64" : "w-16"
+          "bg-navy text-white flex flex-col transition-all duration-300 ease-in-out z-50 shadow-xl",
+          "fixed inset-y-0 left-0 md:relative",
+          isSidebarOpen ? "w-64 translate-x-0" : "w-64 -translate-x-full md:w-16 md:translate-x-0"
         )}
       >
         {/* Logo Area */}
@@ -54,7 +63,7 @@ export default function DashboardLayout() {
         </nav>
 
         {/* Sidebar Footer */}
-        <div className="p-2 border-t border-white/10 flex flex-col gap-2">
+        <div className="p-2 border-t border-white/10 flex flex-col gap-2 shrink-0">
           {isSidebarOpen && (
             <div className="p-2 flex flex-col gap-2 rounded bg-white/5 border border-white/10">
               <div className="flex items-center gap-3">
@@ -67,10 +76,10 @@ export default function DashboardLayout() {
                 </div>
               </div>
               <div className="flex items-center gap-2 mt-2 pt-2 border-t border-white/10">
-                <Link to="/marketplace" className="flex-1 flex justify-center p-1.5 bg-white/5 hover:bg-white/10 rounded text-neutral-400 hover:text-white transition-colors" title="Switch to Maker">
+                <Link to="/marketplace" className="flex-1 flex justify-center p-2 bg-white/5 hover:bg-white/10 rounded text-neutral-400 hover:text-white transition-colors" title="Switch to Maker">
                   <RefreshCcw className="w-4 h-4" />
                 </Link>
-                <button onClick={logout} className="flex-1 flex justify-center p-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded transition-colors" title="Logout">
+                <button onClick={logout} className="flex-1 flex justify-center p-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded transition-colors" title="Logout">
                   <LogOut className="w-4 h-4" />
                 </button>
               </div>
@@ -89,28 +98,35 @@ export default function DashboardLayout() {
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
         
         {/* Top Header */}
-        <header className="h-14 bg-white border-b border-border flex items-center justify-between px-6 shrink-0 shadow-sm z-10">
+        <header className="h-14 bg-white border-b border-border flex items-center justify-between px-4 sm:px-6 shrink-0 shadow-sm z-10">
           
-          <div className="flex items-center gap-4 flex-1">
+          <div className="flex items-center gap-2 sm:gap-4 flex-1">
+            <button 
+              className="md:hidden p-2 -ml-2 text-neutral-600 hover:bg-neutral-100 rounded-md shrink-0" 
+              onClick={toggleSidebar}
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+
             {/* Breadcrumb (Simplified) */}
-            <div className="hidden sm:flex text-sm text-neutral-500 font-medium">
+            <div className="hidden sm:flex text-sm text-neutral-500 font-medium whitespace-nowrap">
               Dashboard <span className="mx-2 text-neutral-300">/</span> <span className="text-neutral-900 capitalize">{window.location.pathname.split('/').pop() || 'Overview'}</span>
             </div>
             
             {/* Global Search */}
             <button 
               onClick={() => setShowCommandPalette(true)}
-              className="ml-auto sm:ml-4 flex items-center gap-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-500 px-3 py-1.5 rounded-md text-sm border border-neutral-200 transition-colors w-64"
+              className="ml-auto sm:ml-4 flex items-center gap-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-500 px-3 py-1.5 rounded-md text-sm border border-neutral-200 transition-colors w-full sm:w-64"
             >
-              <Search className="w-4 h-4" />
-              <span>Search anywhere...</span>
-              <div className="ml-auto flex items-center gap-1 text-xs font-semibold">
+              <Search className="w-4 h-4 shrink-0" />
+              <span className="truncate">Search anywhere...</span>
+              <div className="hidden sm:flex ml-auto items-center gap-1 text-xs font-semibold shrink-0">
                 <Command className="w-3 h-3" /> K
               </div>
             </button>
           </div>
 
-          <div className="flex items-center gap-4 ml-6">
+          <div className="flex items-center gap-2 sm:gap-4 ml-2 sm:ml-6 shrink-0">
             {/* Date Range Picker Mock */}
             <button className="hidden md:flex items-center gap-2 text-sm border border-border px-3 py-1.5 rounded-md hover:bg-neutral-50 font-medium">
               <Calendar className="w-4 h-4 text-neutral-500" />
@@ -121,10 +137,10 @@ export default function DashboardLayout() {
             {activePulsesCount > 0 && (
               <button 
                 onClick={togglePulsePanel}
-                className="flex items-center gap-1.5 bg-amber-50 border border-amber-200 text-amber-700 px-3 py-1.5 rounded-md text-sm font-medium hover:bg-amber-100 transition-colors"
+                className="flex items-center gap-1.5 bg-amber-50 border border-amber-200 text-amber-700 px-2 sm:px-3 py-1.5 rounded-md text-sm font-medium hover:bg-amber-100 transition-colors"
               >
                 <Zap className="w-4 h-4 fill-amber-500 text-amber-500 animate-pulse" />
-                <span>{activePulsesCount} Pulses</span>
+                <span className="hidden sm:inline">{activePulsesCount} Pulses</span>
               </button>
             )}
 
