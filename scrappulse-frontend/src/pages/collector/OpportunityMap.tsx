@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Map, MapPin, Zap, ChevronLeft, Search, Navigation } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '../../lib/utils';
 import { ResponsiveContainer, RadialBarChart, RadialBar } from 'recharts';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
@@ -17,14 +17,35 @@ L.Icon.Default.mergeOptions({
 
 const ZONES = [
   { id: 'z1', name: 'MIDC Industrial Area', material: 'Copper & PCBs', expectedWeight: '200-500kg', expectedPrice: '₹68-72', distance: 3.2, score: 95, topPick: true, lat: 19.125, lng: 72.875 },
-  { id: 'z2', name: 'Andheri East Commercial', material: 'Mixed E-Waste', expectedWeight: '50-100kg', expectedPrice: '₹45-50', distance: 1.5, score: 72, topPick: false, lat: 19.113, lng: 72.869 },
-  { id: 'z3', name: 'Powai Residential', material: 'Home Appliances', expectedWeight: '100-150kg', expectedPrice: '₹25-30', distance: 4.8, score: 65, topPick: false, lat: 19.119, lng: 72.906 },
+  { id: 'z2', name: 'Andheri East Commercial', material: 'Aluminium & Mixed E-Waste', expectedWeight: '50-100kg', expectedPrice: '₹45-50', distance: 1.5, score: 72, topPick: false, lat: 19.113, lng: 72.869 },
+  { id: 'z3', name: 'Powai Residential', material: 'Home Appliances & Batteries', expectedWeight: '100-150kg', expectedPrice: '₹25-30', distance: 4.8, score: 65, topPick: false, lat: 19.119, lng: 72.906 },
   { id: 'z4', name: 'SEEPZ Tech Park', material: 'Servers & Cables', expectedWeight: '500kg+', expectedPrice: '₹80-85', distance: 6.1, score: 88, topPick: false, lat: 19.123, lng: 72.880 },
 ];
+
+function MapUpdater({ zones }: { zones: typeof ZONES }) {
+  const map = useMap();
+  
+  useEffect(() => {
+    if (zones.length > 0) {
+      if (zones.length === 1) {
+        map.flyTo([zones[0].lat, zones[0].lng], 14, { animate: true });
+      } else {
+        const bounds = L.latLngBounds(zones.map(z => [z.lat, z.lng]));
+        map.fitBounds(bounds, { padding: [20, 20], animate: true });
+      }
+    }
+  }, [zones, map]);
+
+  return null;
+}
 
 export default function OpportunityMap() {
   const navigate = useNavigate();
   const [filter, setFilter] = useState('All');
+
+  const filteredZones = filter === 'All' 
+    ? ZONES 
+    : ZONES.filter(z => z.material.toLowerCase().includes(filter.toLowerCase()));
 
   return (
     <div className="flex flex-col h-full bg-neutral-50 relative pb-20">
@@ -64,7 +85,8 @@ export default function OpportunityMap() {
               url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
-            {ZONES.map(zone => (
+            <MapUpdater zones={filteredZones} />
+            {filteredZones.map(zone => (
               <Marker key={zone.id} position={[zone.lat, zone.lng]}>
                 <Popup>
                   <div className="font-bold text-neutral-900">{zone.name}</div>
@@ -81,7 +103,7 @@ export default function OpportunityMap() {
             Top Zones Nearby <span className="text-xs text-teal font-semibold">Live Data</span>
           </h2>
           
-          {ZONES.map(zone => (
+          {filteredZones.map(zone => (
             <div key={zone.id} className={cn(
               "bg-white rounded-xl border p-4 shadow-sm relative overflow-hidden transition-all",
               zone.topPick ? "border-amber-200 ring-1 ring-amber-200 bg-amber-50/10" : "border-border"
@@ -122,7 +144,10 @@ export default function OpportunityMap() {
                 <p className="text-xs font-semibold text-neutral-500 flex items-center gap-1">
                   <MapPin className="w-3.5 h-3.5" /> {zone.distance} km away
                 </p>
-                <button className="flex items-center gap-1.5 text-xs font-bold bg-navy hover:bg-navy/90 text-white px-3 py-1.5 rounded-lg shadow-sm transition-colors active:scale-95">
+                <button 
+                  onClick={() => window.open(`https://www.google.com/maps/dir/?api=1&destination=${zone.lat},${zone.lng}`, '_blank')}
+                  className="flex items-center gap-1.5 text-xs font-bold bg-navy hover:bg-navy/90 text-white px-3 py-1.5 rounded-lg shadow-sm transition-colors active:scale-95"
+                >
                   <Navigation className="w-3.5 h-3.5" /> Navigate
                 </button>
               </div>
