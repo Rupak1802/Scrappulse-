@@ -1,5 +1,5 @@
 import { Camera, Map, TrendingUp, AlertCircle, Sparkles, Scale, BookOpen, ChevronRight, Zap } from 'lucide-react';
-import { RadialBarChart, RadialBar, ResponsiveContainer, AreaChart, Area, YAxis, XAxis, Tooltip, CartesianGrid } from 'recharts';
+import { RadialBarChart, RadialBar, ResponsiveContainer, LineChart, Line, YAxis, XAxis, Tooltip, CartesianGrid } from 'recharts';
 import { Link } from 'react-router-dom';
 import { useAppStore } from '../../store';
 
@@ -77,7 +77,7 @@ export default function Home() {
             {/* Opportunity Score */}
             <div className="bg-white/60 backdrop-blur-xl border border-white/60 rounded-3xl p-6 shadow-[0_8px_32px_rgba(0,0,0,0.04)] flex flex-col items-center text-center relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-teal-500/5 rounded-full blur-2xl" />
-              <h3 className="text-sm lg:text-base font-bold text-neutral-500 w-full text-left mb-2 relative z-10">Today's Score</h3>
+              <h3 className="text-sm lg:text-base font-bold text-neutral-500 w-full text-left mb-2 relative z-10">Credit Score</h3>
               <div className="h-32 lg:h-40 w-full relative z-10">
                 <ResponsiveContainer width="100%" height="100%">
                   <RadialBarChart cx="50%" cy="50%" innerRadius="70%" outerRadius="100%" barSize={12} data={opportunityData} startAngle={180} endAngle={0}>
@@ -91,7 +91,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <p className="text-xs lg:text-sm font-bold text-teal-700 mt-2 bg-teal-500/10 backdrop-blur-sm px-4 py-2 rounded-xl relative z-10 border border-teal-500/10">Expected: ₹800 - ₹1.2k</p>
+              <p className="text-xs lg:text-sm font-bold text-teal-700 mt-2 bg-teal-500/10 backdrop-blur-sm px-4 py-2 rounded-xl relative z-10 border border-teal-500/10">Status: Excellent</p>
             </div>
 
             {/* Weekly Earnings Area Chart */}
@@ -108,13 +108,7 @@ export default function Home() {
               </div>
               <div className="h-28 lg:h-32 w-full mt-auto relative z-10 -mx-2">
                 <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={earningsData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                    <defs>
-                      <linearGradient id="colorEarnings" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#0d9488" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#0d9488" stopOpacity={0}/>
-                      </linearGradient>
-                    </defs>
+                  <LineChart data={earningsData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
                     <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#888' }} dy={10} />
                     <YAxis hide domain={['dataMin - 100', 'dataMax + 100']} />
@@ -123,8 +117,8 @@ export default function Home() {
                       itemStyle={{ color: '#0d9488' }}
                       formatter={(value) => [`₹${value}`, 'Earnings']}
                     />
-                    <Area type="monotone" dataKey="value" stroke="#0d9488" strokeWidth={4} fillOpacity={1} fill="url(#colorEarnings)" activeDot={{ r: 6, strokeWidth: 0, fill: '#0d9488' }} />
-                  </AreaChart>
+                    <Line type="monotone" dataKey="value" stroke="#0d9488" strokeWidth={4} dot={false} activeDot={{ r: 6, strokeWidth: 0, fill: '#0d9488' }} />
+                  </LineChart>
                 </ResponsiveContainer>
               </div>
             </div>

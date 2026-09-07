@@ -39,6 +39,24 @@ export default function FairDeal() {
     { name: 'Fair Range', value: totalFairMin }
   ];
 
+  const handleShare = async () => {
+    const text = `Check out this ScrapPulse FairDeal analysis! I checked a ${weight}kg offer of ${material} at ₹${offerPrice}/kg. The fair market range is ₹${fairPriceMin}-₹${fairPriceMax}/kg.`;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'ScrapPulse FairDeal Check',
+          text: text,
+          url: window.location.href,
+        });
+      } catch (err) {
+        console.error('Error sharing:', err);
+      }
+    } else {
+      navigator.clipboard.writeText(text + ' ' + window.location.href);
+      alert('Analysis link copied to clipboard!');
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-full bg-neutral-50 pb-20">
       {/* Header */}
@@ -50,8 +68,8 @@ export default function FairDeal() {
           <h1 className="font-semibold text-neutral-900 leading-tight">FairDeal Check</h1>
         </div>
         <div className="flex gap-2">
-          <button className="p-2 text-neutral-500 hover:bg-neutral-100 rounded-full"><Printer className="w-5 h-5" /></button>
-          <button className="p-2 text-teal hover:bg-teal/10 rounded-full"><Share2 className="w-5 h-5" /></button>
+          <button onClick={() => window.print()} className="p-2 text-neutral-500 hover:bg-neutral-100 rounded-full"><Printer className="w-5 h-5" /></button>
+          <button onClick={handleShare} className="p-2 text-teal hover:bg-teal/10 rounded-full"><Share2 className="w-5 h-5" /></button>
         </div>
       </div>
 
