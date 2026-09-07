@@ -12,7 +12,16 @@ export default function CreatePost() {
   const [channel, setChannel] = useState('#show-and-tell');
   const [image, setImage] = useState<string | null>(null);
 
-  const simulateImageUpload = () => setImage('https://picsum.photos/seed/newbuild/600/400');
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <div className="max-w-7xl mx-auto p-4 lg:p-8 flex flex-col lg:flex-row gap-8">
@@ -34,10 +43,11 @@ export default function CreatePost() {
                  <button onClick={() => setImage(null)} className="absolute top-2 right-2 bg-black/60 text-white p-2 rounded-full hover:bg-black transition-colors"><X className="w-4 h-4" /></button>
                </div>
              ) : (
-               <button onClick={simulateImageUpload} className="w-full aspect-video rounded-xl border-2 border-dashed border-border hover:border-teal hover:bg-teal/5 transition-all flex flex-col items-center justify-center gap-3 text-neutral-500 hover:text-teal group">
+               <label htmlFor="post-image-upload" className="cursor-pointer w-full aspect-video rounded-xl border-2 border-dashed border-border hover:border-teal hover:bg-teal/5 transition-all flex flex-col items-center justify-center gap-3 text-neutral-500 hover:text-teal group">
                  <div className="w-16 h-16 rounded-full bg-neutral-100 group-hover:bg-teal/10 flex items-center justify-center transition-colors"><Camera className="w-8 h-8" /></div>
                  <span className="font-bold">Upload a photo of your build</span>
-               </button>
+                 <input type="file" id="post-image-upload" accept="image/*" className="hidden" onChange={handleImageUpload} />
+               </label>
              )}
            </div>
 

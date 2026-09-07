@@ -40,11 +40,11 @@ export default function FairDeal() {
   ];
 
   const handleShare = async () => {
-    const text = `Check out this ScrapPulse FairDeal analysis! I checked a ${weight}kg offer of ${material} at ₹${offerPrice}/kg. The fair market range is ₹${fairPriceMin}-₹${fairPriceMax}/kg.`;
+    const text = `Check out this Relectron FairDeal analysis! I checked a ${weight}kg offer of ${material} at ₹${offerPrice}/kg. The fair market range is ₹${fairPriceMin}-₹${fairPriceMax}/kg.`;
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'ScrapPulse FairDeal Check',
+          title: 'Relectron FairDeal Check',
           text: text,
           url: window.location.href,
         });

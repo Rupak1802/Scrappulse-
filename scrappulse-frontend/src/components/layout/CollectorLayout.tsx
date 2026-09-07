@@ -20,7 +20,7 @@ export default function CollectorLayout() {
     '/collector/opportunity-map': 'Opportunity Map',
     '/collector/profile': 'Profile',
   };
-  const title = titleMap[location.pathname] || 'Kabadi Connect';
+  const title = titleMap[location.pathname] || 'Relectron';
 
   const navItems = [
     { to: '/collector', icon: <Home />, label: 'Home' },
@@ -39,8 +39,9 @@ export default function CollectorLayout() {
       
       {/* Desktop Sidebar (hidden on mobile) */}
       <aside className="hidden lg:flex w-64 flex-col bg-white border-r border-border h-full relative z-20">
-        <div className="h-16 flex items-center px-6 border-b border-border bg-gradient-to-br from-teal to-green-600">
-           <h1 className="text-white font-black text-xl tracking-tight">KabadiConnect</h1>
+        <div className="h-16 flex items-center px-6 border-b border-border bg-gradient-to-br from-teal to-green-600 gap-2">
+           <img src="/logo.png" alt="Relectron" className="h-8 w-8 object-contain bg-white rounded-md p-1" />
+           <h1 className="text-white font-black text-xl tracking-tight">Relectron</h1>
         </div>
         
         <div className="p-4 border-b border-border bg-neutral-50/50">

@@ -36,11 +36,9 @@ export default function SecondLifeLayout() {
                 <Menu className="w-6 h-6" />
               </button>
               <Link to="/marketplace" className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal to-green-600 flex items-center justify-center text-white font-black text-xl shadow-inner">
-                  K
-                </div>
+                <img src="/logo.png" alt="Relectron" className="w-10 h-10 object-contain shrink-0" />
                 <div className="hidden sm:block">
-                  <span className="font-bold text-lg text-neutral-900 leading-tight block">KabadiConnect</span>
+                  <span className="font-bold text-lg text-neutral-900 leading-tight block">Relectron</span>
                   <span className="text-[10px] font-black uppercase tracking-widest text-teal leading-none block">Second Life</span>
                 </div>
               </Link>

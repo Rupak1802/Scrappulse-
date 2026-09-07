@@ -69,7 +69,7 @@ export default function ProjectIdeaDetail() {
           <div className="mt-8 bg-green-50 border border-green-200 rounded-2xl p-6 text-center shadow-sm">
              <div className="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-3"><CheckCircle2 className="w-6 h-6" /></div>
              <h3 className="font-bold text-green-900 mb-2">Build Complete!</h3>
-             <p className="text-sm text-green-800 mb-6">Show off what you built to the Kabadi Connect community.</p>
+             <p className="text-sm text-green-800 mb-6">Show off what you built to the Relectron community.</p>
              <Link to={`/community/new?idea=${idea.id}`} className="inline-block px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl shadow-md transition-colors">Post to Community</Link>
           </div>
         </div>

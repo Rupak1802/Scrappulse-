@@ -26,13 +26,11 @@ export default function Login() {
         className="w-full max-w-md bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-2xl relative z-10"
       >
         <div className="flex justify-center mb-6">
-           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal to-green-600 flex items-center justify-center text-white font-black text-3xl shadow-[0_0_30px_rgba(20,184,166,0.3)]">
-             K
-           </div>
+           <img src="/logo.png" alt="Relectron" className="w-24 h-24 object-contain" />
         </div>
 
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-black text-white mb-2 tracking-tight">KabadiConnect</h1>
+          <h1 className="text-3xl font-black text-white mb-2 tracking-tight">Relectron</h1>
           <p className="text-neutral-400 font-medium text-sm">Sign in to your account</p>
         </div>
 
