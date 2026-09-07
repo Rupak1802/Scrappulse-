@@ -95,13 +95,13 @@ export default function Anomalies() {
                   <div className="flex gap-4">
                     <div className="flex-1">
                       <div className="aspect-video bg-neutral-900 rounded-lg overflow-hidden border border-border relative group cursor-pointer">
-                        <img src="https://picsum.photos/seed/scrap1/400/300" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" alt="Collector" />
+                        <img src="https://images.unsplash.com/photo-1558611848-73f7eb4001a1?w=400&h=300&fit=crop" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" alt="Collector" />
                         <div className="absolute bottom-2 left-2 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded backdrop-blur-sm">Collector's Photo</div>
                       </div>
                     </div>
                     <div className="flex-1">
                       <div className="aspect-video bg-neutral-900 rounded-lg overflow-hidden border border-border relative group cursor-pointer">
-                        <img src="https://picsum.photos/seed/scale/400/300" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" alt="Scale" />
+                        <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=400&h=300&fit=crop" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" alt="Scale" />
                         <div className="absolute bottom-2 left-2 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded backdrop-blur-sm">CCTV / Scale Snapshot</div>
                       </div>
                     </div>

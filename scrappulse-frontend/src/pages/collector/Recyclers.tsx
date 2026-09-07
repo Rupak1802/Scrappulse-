@@ -41,7 +41,7 @@ export default function Recyclers() {
               <p className="text-xs text-neutral-500">15kg Copper Wire</p>
             </div>
           </div>
-          <button onClick={() => setView(v => v === 'list' ? 'map' : 'list')} className="p-2 bg-neutral-100 rounded-lg text-neutral-600 font-medium text-xs flex items-center gap-1.5">
+          <button onClick={() => setView(v => v === 'list' ? 'map' : 'list')} className="p-2 bg-neutral-100 rounded-lg text-neutral-600 font-medium text-xs flex items-center gap-1.5 shrink-0">
             <MapIcon className="w-4 h-4" /> {view === 'list' ? 'Map View' : 'List View'}
           </button>
         </div>
@@ -93,16 +93,16 @@ export default function Recyclers() {
                 
                 <div className="flex justify-between items-start mb-3 mt-1">
                   <div>
-                    <h3 className="font-bold text-neutral-900">{recycler.name}</h3>
-                    <div className="flex gap-1.5 mt-1">
+                    <h3 className="font-bold text-neutral-900 leading-tight">{recycler.name}</h3>
+                    <div className="flex flex-wrap gap-1.5 mt-1">
                       {recycler.tags.map(tag => (
                         <span key={tag} className="bg-neutral-100 text-neutral-600 text-[10px] font-semibold px-1.5 py-0.5 rounded uppercase tracking-wider">{tag}</span>
                       ))}
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="text-lg font-black text-teal">₹{recycler.price}<span className="text-sm font-bold text-neutral-400">/kg</span></div>
-                    <div className="text-xs text-neutral-500 font-medium">Est. ₹{recycler.price * 15} total</div>
+                  <div className="text-right shrink-0">
+                    <div className="text-lg font-black text-teal leading-none">₹{recycler.price}<span className="text-sm font-bold text-neutral-400">/kg</span></div>
+                    <div className="text-xs text-neutral-500 font-medium mt-1">Est. ₹{recycler.price * 15}</div>
                   </div>
                 </div>
 
