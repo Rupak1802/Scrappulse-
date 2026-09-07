@@ -3,12 +3,23 @@ import { MapPin, ShieldCheck, TrendingUp, ChevronLeft, Search, SlidersHorizontal
 import { Link, useNavigate } from 'react-router-dom';
 import { ResponsiveContainer, RadialBarChart, RadialBar } from 'recharts';
 import { cn } from '../../lib/utils';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+
+// Fix for default marker icons in leaflet
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
 
 const MOCK_RECYCLERS = [
-  { id: '1', name: 'EcoTech Recycling', price: 68, distance: 2.4, reliability: 98, onTime: 99, recommended: true, tags: ['Best Price', 'Verified'] },
-  { id: '2', name: 'GreenEarth Metals', price: 65, distance: 1.2, reliability: 92, onTime: 90, recommended: false, tags: ['Nearest'] },
-  { id: '3', name: 'Mumbai Scrap Hub', price: 62, distance: 3.8, reliability: 85, onTime: 80, recommended: false, tags: ['Accepts All'] },
-  { id: '4', name: 'SafeDispose Inc.', price: 64, distance: 5.1, reliability: 95, onTime: 96, recommended: false, tags: ['Verified'] },
+  { id: '1', name: 'EcoTech Recycling', price: 68, distance: 2.4, reliability: 98, onTime: 99, recommended: true, tags: ['Best Price', 'Verified'], lat: 19.125, lng: 72.875 },
+  { id: '2', name: 'GreenEarth Metals', price: 65, distance: 1.2, reliability: 92, onTime: 90, recommended: false, tags: ['Nearest'], lat: 19.113, lng: 72.869 },
+  { id: '3', name: 'Mumbai Scrap Hub', price: 62, distance: 3.8, reliability: 85, onTime: 80, recommended: false, tags: ['Accepts All'], lat: 19.119, lng: 72.906 },
+  { id: '4', name: 'SafeDispose Inc.', price: 64, distance: 5.1, reliability: 95, onTime: 96, recommended: false, tags: ['Verified'], lat: 19.123, lng: 72.880 },
 ];
 
 export default function Recyclers() {
@@ -130,19 +141,31 @@ export default function Recyclers() {
             ))}
           </div>
         ) : (
-          <div className="w-full h-[60vh] bg-neutral-200 rounded-xl border border-border overflow-hidden relative flex items-center justify-center">
-            {/* Stylized Mock Map */}
-            <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/cubes.png")' }}></div>
-            <div className="relative z-10 flex flex-col items-center">
-              <MapPin className="w-12 h-12 text-teal animate-bounce" />
-              <div className="bg-white px-3 py-1.5 rounded-full shadow-lg font-bold text-sm text-neutral-900 mt-2">
-                4 Recyclers nearby
-              </div>
-            </div>
-            {/* Mock pins */}
-            <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-teal rounded-full shadow-[0_0_15px_rgba(0,137,123,0.8)]" />
-            <div className="absolute top-1/3 right-1/4 w-3 h-3 bg-neutral-400 rounded-full" />
-            <div className="absolute bottom-1/3 left-1/3 w-3 h-3 bg-neutral-400 rounded-full" />
+          <div className="w-full h-[60vh] bg-neutral-200 rounded-xl border border-border overflow-hidden relative flex items-center justify-center z-10">
+            <MapContainer center={[19.120, 72.870]} zoom={13} style={{ height: '100%', width: '100%' }}>
+              <TileLayer
+                url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              />
+              {MOCK_RECYCLERS.map(recycler => (
+                <Marker key={recycler.id} position={[recycler.lat, recycler.lng]}>
+                  <Popup>
+                    <div className="font-bold text-neutral-900">{recycler.name}</div>
+                    <div className="text-xs text-teal font-medium">₹{recycler.price}/kg</div>
+                    <div className="text-xs text-neutral-500 mb-2">{recycler.distance} km away</div>
+                    <button 
+                      onClick={() => setSelectedId(recycler.id)}
+                      className={cn(
+                        "w-full text-white text-xs font-bold py-1.5 rounded transition-colors",
+                        selectedId === recycler.id ? "bg-teal" : "bg-navy hover:bg-navy/90"
+                      )}
+                    >
+                      {selectedId === recycler.id ? "Selected" : "Select"}
+                    </button>
+                  </Popup>
+                </Marker>
+              ))}
+            </MapContainer>
           </div>
         )}
       </div>

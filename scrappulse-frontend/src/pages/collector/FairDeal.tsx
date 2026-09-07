@@ -19,8 +19,13 @@ export default function FairDeal() {
   const [weight, setWeight] = useState<number>(15);
   const [offerPrice, setOfferPrice] = useState<number>(58);
 
-  const fairPriceMin = 64;
-  const fairPriceMax = 69;
+  const getFairPrices = (mat: string) => {
+    if (mat === 'Copper Wire (Bare)') return { min: 72, max: 78 };
+    if (mat === 'Mixed Aluminum') return { min: 45, max: 50 };
+    return { min: 64, max: 69 }; // Default Copper Wire (Insulated)
+  };
+
+  const { min: fairPriceMin, max: fairPriceMax } = getFairPrices(material);
   const isFair = offerPrice >= fairPriceMin && offerPrice <= fairPriceMax;
   const isLow = offerPrice < fairPriceMin;
   const isHigh = offerPrice > fairPriceMax;
@@ -30,8 +35,8 @@ export default function FairDeal() {
   const lossAmount = totalFairMin - totalOffer;
 
   const comparisonData = [
-    { name: 'Offer', value: offerPrice },
-    { name: 'Fair Range', value: fairPriceMin } // Simplified for chart
+    { name: 'Offer', value: totalOffer },
+    { name: 'Fair Range', value: totalFairMin }
   ];
 
   return (
