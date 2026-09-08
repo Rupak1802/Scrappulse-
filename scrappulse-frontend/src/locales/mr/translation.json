@@ -1,0 +1,50 @@
+{
+  "common": {
+    "loading": "लोड होत आहे...",
+    "error": "त्रुटी आली",
+    "save": "जतन करा",
+    "cancel": "रद्द करा",
+    "exportCsv": "CSV निर्यात करा",
+    "download": "डाउनलोड",
+    "selectAll": "सर्व निवडा",
+    "status": "स्थिती",
+    "date": "तारीख"
+  },
+  "sidebar": {
+    "dashboard": "डॅशबोर्ड",
+    "transactions": "व्यवहार",
+    "reliability": "विश्वसनीयता",
+    "fleet": "फ्लीट ऑप्टिमायझर",
+    "reports": "अहवाल",
+    "digitalTwin": "डिजिटल ट्विन",
+    "supplyRadar": "सप्लाय रडार",
+    "settings": "सेटिंग्ज"
+  },
+  "supplyRadar": {
+    "title": "सप्लाय रडार",
+    "subtitle": "थेट ई-कचरा हवामान आणि अंदाज",
+    "allMaterials": "सर्व साहित्य",
+    "copper": "तांबे",
+    "pcbs": "पीसीबी",
+    "aluminium": "अॅल्युमिनियम",
+    "activePulses": "सक्रिय पल्स",
+    "predict7Day": "७-दिवस अंदाज",
+    "avgReliability": "सरासरी विश्वसनीयता",
+    "openAnomalies": "खुल्या विसंगती",
+    "zoneHeatmap": "झोन हीटमॅप",
+    "forecast": "अंदाज",
+    "estNext7Days": "अंदाजित पुढील ७ दिवस",
+    "aiConfidence": "एआय कॉन्फिडन्स",
+    "capacityWarning": "क्षमता चेतावणी:",
+    "capacityWarningMsg": "अपेक्षित पुरवठा सामान्य संकलन क्षमतेपेक्षा १५% जास्त आहे.",
+    "dispatchFleet": "फ्लीट येथे पाठवा",
+    "activePulsesLive": "सक्रिय पल्स (थेट)",
+    "locality": "परिसर",
+    "material": "साहित्य",
+    "signalStrength": "सिग्नल स्ट्रेंथ",
+    "estSupply": "अंदाजित पुरवठा",
+    "age": "वय",
+    "action": "कृती",
+    "analyze": "विश्लेषण करा"
+  }
+}

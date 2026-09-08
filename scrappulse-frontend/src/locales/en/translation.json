@@ -1,0 +1,50 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "exportCsv": "Export CSV",
+    "download": "Download",
+    "selectAll": "Select All",
+    "status": "Status",
+    "date": "Date"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "transactions": "Transactions",
+    "reliability": "Reliability",
+    "fleet": "Fleet Optimizer",
+    "reports": "Reports",
+    "digitalTwin": "Digital Twin",
+    "supplyRadar": "Supply Radar",
+    "settings": "Settings"
+  },
+  "supplyRadar": {
+    "title": "Supply Radar",
+    "subtitle": "Live E-Waste Weather & Forecasting",
+    "allMaterials": "All Materials",
+    "copper": "Copper",
+    "pcbs": "PCBs",
+    "aluminium": "Aluminium",
+    "activePulses": "Active Pulses",
+    "predict7Day": "7-Day Predict",
+    "avgReliability": "Avg Reliability",
+    "openAnomalies": "Open Anomalies",
+    "zoneHeatmap": "Zone Heatmap",
+    "forecast": "Forecast",
+    "estNext7Days": "Est. Next 7 Days",
+    "aiConfidence": "AI Confidence",
+    "capacityWarning": "Capacity Warning:",
+    "capacityWarningMsg": "Expected supply exceeds usual collection capacity by 15%.",
+    "dispatchFleet": "Dispatch Fleet Here",
+    "activePulsesLive": "Active Pulses (Live)",
+    "locality": "Locality",
+    "material": "Material",
+    "signalStrength": "Signal Strength",
+    "estSupply": "Est. Supply",
+    "age": "Age",
+    "action": "Action",
+    "analyze": "Analyze"
+  }
+}

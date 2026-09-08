@@ -3,6 +3,7 @@ import { Activity, AlertTriangle, ShieldCheck, Truck, Zap, Map as MapIcon, Chevr
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 import { cn } from '../../lib/utils';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const forecastData = [
   { day: 'Mon', amount: 120 }, { day: 'Tue', amount: 150 }, { day: 'Wed', amount: 180 },
@@ -10,19 +11,20 @@ const forecastData = [
 ];
 
 export default function SupplyRadar() {
+  const { t } = useTranslation();
   const [selectedZone, setSelectedZone] = useState<string | null>('MIDC');
 
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900">Supply Radar</h1>
-          <p className="text-neutral-500">Live E-Waste Weather & Forecasting</p>
+          <h1 className="text-2xl font-bold text-neutral-900">{t('supplyRadar.title')}</h1>
+          <p className="text-neutral-500">{t('supplyRadar.subtitle')}</p>
         </div>
         <div className="flex gap-2 bg-neutral-100 p-1 rounded-lg overflow-x-auto w-full md:w-auto">
-          {['All Materials', 'Copper', 'PCBs', 'Aluminium'].map(m => (
-            <button key={m} className={cn("px-4 py-1.5 text-sm font-semibold rounded-md transition-colors", m === 'All Materials' ? 'bg-white shadow-sm' : 'text-neutral-500 hover:text-neutral-900')}>
-              {m}
+          {['allMaterials', 'copper', 'pcbs', 'aluminium'].map(m => (
+            <button key={m} className={cn("px-4 py-1.5 text-sm font-semibold rounded-md transition-colors", m === 'allMaterials' ? 'bg-white shadow-sm' : 'text-neutral-500 hover:text-neutral-900')}>
+              {t(`supplyRadar.${m}`)}
             </button>
           ))}
         </div>
@@ -30,17 +32,17 @@ export default function SupplyRadar() {
 
       {/* KPI Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <KPICard icon={<Zap className="text-amber-500" />} title="Active Pulses" value="12" trend="+3 vs yesterday" trendUp={true} />
-        <KPICard icon={<Activity className="text-blue-500" />} title="7-Day Predict" value="4.2 Tons" trend="+15% vs last week" trendUp={true} />
-        <KPICard icon={<ShieldCheck className="text-teal" />} title="Avg Reliability" value="94%" trend="Stable" trendUp={true} />
-        <KPICard icon={<AlertTriangle className="text-red-500" />} title="Open Anomalies" value="5" trend="-2 resolved today" trendUp={true} />
+        <KPICard icon={<Zap className="text-amber-500" />} title={t('supplyRadar.activePulses')} value="12" trend="+3 vs yesterday" trendUp={true} />
+        <KPICard icon={<Activity className="text-blue-500" />} title={t('supplyRadar.predict7Day')} value="4.2 Tons" trend="+15% vs last week" trendUp={true} />
+        <KPICard icon={<ShieldCheck className="text-teal" />} title={t('supplyRadar.avgReliability')} value="94%" trend="Stable" trendUp={true} />
+        <KPICard icon={<AlertTriangle className="text-red-500" />} title={t('supplyRadar.openAnomalies')} value="5" trend="-2 resolved today" trendUp={true} />
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6 h-auto lg:h-[400px]">
         {/* Map Area */}
         <div className="flex-1 bg-white border border-border rounded-xl shadow-sm overflow-hidden flex flex-col relative">
           <div className="p-4 border-b border-border bg-neutral-50 flex items-center justify-between">
-            <h3 className="font-bold text-neutral-900 flex items-center gap-2"><MapIcon className="w-4 h-4 text-teal" /> Zone Heatmap</h3>
+            <h3 className="font-bold text-neutral-900 flex items-center gap-2"><MapIcon className="w-4 h-4 text-teal" /> {t('supplyRadar.zoneHeatmap')}</h3>
           </div>
           <div className="flex-1 relative bg-neutral-100 flex items-center justify-center p-8">
             <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/cubes.png")' }}></div>
@@ -57,16 +59,16 @@ export default function SupplyRadar() {
         {selectedZone && (
           <div className="w-full lg:w-96 bg-white border border-border rounded-xl shadow-sm flex flex-col overflow-hidden animate-in slide-in-from-right-4 shrink-0">
             <div className="p-4 border-b border-border bg-navy text-white">
-              <h3 className="font-bold text-lg">{selectedZone} <span className="text-teal text-sm font-medium ml-2">Forecast</span></h3>
+              <h3 className="font-bold text-lg">{selectedZone} <span className="text-teal text-sm font-medium ml-2">{t('supplyRadar.forecast')}</span></h3>
             </div>
             <div className="p-4 flex-1 overflow-y-auto">
               <div className="flex justify-between items-end mb-4">
                 <div>
-                  <p className="text-xs text-neutral-500 font-bold uppercase tracking-wider">Est. Next 7 Days</p>
+                  <p className="text-xs text-neutral-500 font-bold uppercase tracking-wider">{t('supplyRadar.estNext7Days')}</p>
                   <p className="text-2xl font-black text-neutral-900">840 <span className="text-sm text-neutral-400 font-bold">kg</span></p>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs text-neutral-500 font-bold uppercase tracking-wider">AI Confidence</p>
+                  <p className="text-xs text-neutral-500 font-bold uppercase tracking-wider">{t('supplyRadar.aiConfidence')}</p>
                   <p className="text-lg font-bold text-green-600">92%</p>
                 </div>
               </div>
@@ -91,13 +93,13 @@ export default function SupplyRadar() {
 
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-6">
                 <p className="text-sm text-amber-900 font-medium">
-                  <strong className="block mb-1 text-amber-950">Capacity Warning:</strong>
-                  Expected supply exceeds usual collection capacity by 15%.
+                  <strong className="block mb-1 text-amber-950">{t('supplyRadar.capacityWarning')}</strong>
+                  {t('supplyRadar.capacityWarningMsg')}
                 </p>
               </div>
 
               <Link to="/dashboard/fleet" className="w-full bg-teal hover:bg-teal/90 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition-colors">
-                <Truck className="w-4 h-4" /> Dispatch Fleet Here
+                <Truck className="w-4 h-4" /> {t('supplyRadar.dispatchFleet')}
               </Link>
             </div>
           </div>
@@ -107,19 +109,19 @@ export default function SupplyRadar() {
       {/* Active Pulses Table */}
       <div className="bg-white border border-border rounded-xl shadow-sm overflow-hidden">
         <div className="p-4 border-b border-border flex items-center justify-between bg-neutral-50">
-          <h3 className="font-bold text-neutral-900 flex items-center gap-2"><Zap className="w-4 h-4 text-amber-500" /> Active Pulses (Live)</h3>
-          <button className="flex items-center gap-2 text-sm font-semibold text-teal hover:underline"><Download className="w-4 h-4" /> Export CSV</button>
+          <h3 className="font-bold text-neutral-900 flex items-center gap-2"><Zap className="w-4 h-4 text-amber-500" /> {t('supplyRadar.activePulsesLive')}</h3>
+          <button className="flex items-center gap-2 text-sm font-semibold text-teal hover:underline"><Download className="w-4 h-4" /> {t('common.exportCsv')}</button>
         </div>
         <div className="overflow-x-auto w-full">
           <table className="w-full text-left border-collapse min-w-[600px]">
             <thead>
               <tr className="border-b border-border text-xs uppercase tracking-wider text-neutral-500 bg-white">
-              <th className="p-4 font-semibold">Locality</th>
-              <th className="p-4 font-semibold">Material</th>
-              <th className="p-4 font-semibold">Signal Strength</th>
-              <th className="p-4 font-semibold">Est. Supply</th>
-              <th className="p-4 font-semibold">Age</th>
-              <th className="p-4 font-semibold text-right">Action</th>
+              <th className="p-4 font-semibold">{t('supplyRadar.locality')}</th>
+              <th className="p-4 font-semibold">{t('supplyRadar.material')}</th>
+              <th className="p-4 font-semibold">{t('supplyRadar.signalStrength')}</th>
+              <th className="p-4 font-semibold">{t('supplyRadar.estSupply')}</th>
+              <th className="p-4 font-semibold">{t('supplyRadar.age')}</th>
+              <th className="p-4 font-semibold text-right">{t('supplyRadar.action')}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
@@ -142,7 +144,7 @@ export default function SupplyRadar() {
                 <td className="p-4 text-sm font-bold text-neutral-900">{p.sup}</td>
                 <td className="p-4 text-sm text-neutral-500">{p.age}</td>
                 <td className="p-4 text-right">
-                  <button className="text-sm font-semibold text-teal hover:bg-teal/10 px-3 py-1.5 rounded transition-colors">Analyze</button>
+                  <button className="text-sm font-semibold text-teal hover:bg-teal/10 px-3 py-1.5 rounded transition-colors">{t('supplyRadar.analyze')}</button>
                 </td>
               </tr>
             ))}

@@ -1,0 +1,50 @@
+{
+  "common": {
+    "loading": "लोड हो रहा है...",
+    "error": "त्रुटि हुई",
+    "save": "सहेजें",
+    "cancel": "रद्द करें",
+    "exportCsv": "CSV निर्यात करें",
+    "download": "डाउनलोड",
+    "selectAll": "सभी चुनें",
+    "status": "स्थिति",
+    "date": "तारीख"
+  },
+  "sidebar": {
+    "dashboard": "डैशबोर्ड",
+    "transactions": "लेन-देन",
+    "reliability": "विश्वसनीयता",
+    "fleet": "फ्लीट ऑप्टिमाइज़र",
+    "reports": "रिपोर्ट्स",
+    "digitalTwin": "डिजिटल ट्विन",
+    "supplyRadar": "सप्लाई रडार",
+    "settings": "सेटिंग्स"
+  },
+  "supplyRadar": {
+    "title": "सप्लाई रडार",
+    "subtitle": "लाइव ई-कचरा मौसम और पूर्वानुमान",
+    "allMaterials": "सभी सामग्री",
+    "copper": "तांबा",
+    "pcbs": "पीसीबी",
+    "aluminium": "एल्युमिनियम",
+    "activePulses": "सक्रिय पल्स",
+    "predict7Day": "7-दिन पूर्वानुमान",
+    "avgReliability": "औसत विश्वसनीयता",
+    "openAnomalies": "खुली विसंगतियां",
+    "zoneHeatmap": "ज़ोन हीटमैप",
+    "forecast": "पूर्वानुमान",
+    "estNext7Days": "अनुमानित अगले 7 दिन",
+    "aiConfidence": "एआई कॉन्फिडेंस",
+    "capacityWarning": "क्षमता चेतावनी:",
+    "capacityWarningMsg": "अपेक्षित आपूर्ति सामान्य संग्रह क्षमता से 15% अधिक है।",
+    "dispatchFleet": "फ्लीट यहाँ भेजें",
+    "activePulsesLive": "सक्रिय पल्स (लाइव)",
+    "locality": "इलाका",
+    "material": "सामग्री",
+    "signalStrength": "सिग्नल स्ट्रेंथ",
+    "estSupply": "अनुमानित आपूर्ति",
+    "age": "आयु",
+    "action": "कार्रवाई",
+    "analyze": "विश्लेषण करें"
+  }
+}

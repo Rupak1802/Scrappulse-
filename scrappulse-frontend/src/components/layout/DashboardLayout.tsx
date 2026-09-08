@@ -8,8 +8,11 @@ import {
 import { useAppStore } from '../../store';
 import { cn } from '../../lib/utils';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '../common/LanguageSwitcher';
 
 export default function DashboardLayout() {
+  const { t } = useTranslation();
   const { isSidebarOpen, toggleSidebar, notifications, activePulsesCount, togglePulsePanel, logout } = useAppStore();
   const [showCommandPalette, setShowCommandPalette] = useState(false);
 
@@ -52,14 +55,14 @@ export default function DashboardLayout() {
 
         {/* Navigation */}
         <nav className="flex-1 py-4 overflow-y-auto overflow-x-hidden flex flex-col gap-1 px-2">
-          <NavItem to="/dashboard" icon={<Activity />} label="Supply Radar" isOpen={isSidebarOpen} />
-          <NavItem to="/dashboard/transactions" icon={<ArrowRightLeft />} label="Transactions" isOpen={isSidebarOpen} />
-          <NavItem to="/dashboard/fleet" icon={<Truck />} label="Fleet Optimizer" isOpen={isSidebarOpen} />
+          <NavItem to="/dashboard" icon={<Activity />} label={t('sidebar.supplyRadar')} isOpen={isSidebarOpen} />
+          <NavItem to="/dashboard/transactions" icon={<ArrowRightLeft />} label={t('sidebar.transactions')} isOpen={isSidebarOpen} />
+          <NavItem to="/dashboard/fleet" icon={<Truck />} label={t('sidebar.fleet')} isOpen={isSidebarOpen} />
           <NavItem to="/dashboard/matcher" icon={<Link2 />} label="Supply Matcher" isOpen={isSidebarOpen} />
           <NavItem to="/dashboard/anomalies" icon={<AlertTriangle />} label="Anomalies" isOpen={isSidebarOpen} />
-          <NavItem to="/dashboard/reliability" icon={<ShieldCheck />} label="Reliability" isOpen={isSidebarOpen} />
-          <NavItem to="/dashboard/digital-twin" icon={<MonitorSmartphone />} label="Digital Twin" isOpen={isSidebarOpen} />
-          <NavItem to="/dashboard/reports" icon={<FileText />} label="Reports" isOpen={isSidebarOpen} />
+          <NavItem to="/dashboard/reliability" icon={<ShieldCheck />} label={t('sidebar.reliability')} isOpen={isSidebarOpen} />
+          <NavItem to="/dashboard/digital-twin" icon={<MonitorSmartphone />} label={t('sidebar.digitalTwin')} isOpen={isSidebarOpen} />
+          <NavItem to="/dashboard/reports" icon={<FileText />} label={t('sidebar.reports')} isOpen={isSidebarOpen} />
         </nav>
 
         {/* Sidebar Footer */}
@@ -127,6 +130,8 @@ export default function DashboardLayout() {
           </div>
 
           <div className="flex items-center gap-2 sm:gap-4 ml-2 sm:ml-6 shrink-0">
+            <LanguageSwitcher />
+
             {/* Date Range Picker Mock */}
             <button className="hidden md:flex items-center gap-2 text-sm border border-border px-3 py-1.5 rounded-md hover:bg-neutral-50 font-medium">
               <Calendar className="w-4 h-4 text-neutral-500" />
