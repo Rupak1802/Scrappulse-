@@ -41,10 +41,10 @@ export default function DigitalTwin() {
         </div>
       </div>
 
-      <div className="flex gap-6 h-[600px]">
+      <div className="flex flex-col lg:flex-row gap-6 h-auto lg:h-[600px]">
         
         {/* Parameter Controls */}
-        <div className="w-[350px] bg-white border border-border rounded-xl shadow-sm flex flex-col shrink-0 overflow-hidden">
+        <div className="w-full lg:w-[350px] bg-white border border-border rounded-xl shadow-sm flex flex-col shrink-0 overflow-hidden">
           <div className="p-4 border-b border-border bg-neutral-50">
             <h2 className="font-bold text-neutral-900 flex items-center gap-2"><Settings2 className="w-5 h-5 text-neutral-400" /> Shock Parameters</h2>
           </div>
@@ -116,9 +116,9 @@ export default function DigitalTwin() {
             )}
 
             {results && (
-              <div className="absolute inset-0 flex items-center justify-center z-10">
+              <div className="absolute inset-0 flex items-center justify-start md:justify-center z-10 overflow-x-auto overflow-y-hidden px-4">
                 {/* Mock Topology Nodes */}
-                <div className="w-full max-w-2xl flex items-center justify-between px-12">
+                <div className="min-w-[600px] w-full max-w-2xl flex items-center justify-between px-2 md:px-12">
                   <div className="flex flex-col gap-8">
                     <Node icon={<UserX className="w-5 h-5 text-red-500" />} label="Collectors" status="Critical" alert />
                     <Node icon={<UserCheck className="w-5 h-5 text-teal" />} label="Collectors" status="Active" />
@@ -145,8 +145,8 @@ export default function DigitalTwin() {
 
           {/* Results Panel */}
           {results && (
-            <div className="h-64 bg-white border-t border-border flex animate-in slide-in-from-bottom-8">
-              <div className="w-1/3 p-6 border-r border-border flex flex-col justify-center">
+            <div className="h-auto md:h-64 bg-white border-t border-border flex flex-col md:flex-row animate-in slide-in-from-bottom-8">
+              <div className="w-full md:w-1/3 p-6 border-b md:border-b-0 md:border-r border-border flex flex-col justify-center">
                 <h3 className="font-bold text-neutral-900 mb-4 text-lg">Simulation Impact</h3>
                 <div className="space-y-4">
                   <div>

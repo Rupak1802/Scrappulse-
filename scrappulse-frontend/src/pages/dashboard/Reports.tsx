@@ -15,10 +15,10 @@ export default function Reports() {
         </div>
       </div>
 
-      <div className="flex gap-6 h-[600px]">
+      <div className="flex flex-col lg:flex-row gap-6 h-auto lg:h-[600px]">
         
         {/* Report Builder */}
-        <div className="w-[350px] bg-white border border-border rounded-xl shadow-sm flex flex-col shrink-0 overflow-hidden">
+        <div className="w-full lg:w-[350px] bg-white border border-border rounded-xl shadow-sm flex flex-col shrink-0 overflow-hidden">
           <div className="p-4 border-b border-border bg-neutral-50">
             <h2 className="font-bold text-neutral-900 flex items-center gap-2"><Database className="w-4 h-4 text-neutral-400" /> Query Builder</h2>
           </div>
@@ -96,7 +96,7 @@ export default function Reports() {
           {/* Quick Reports */}
           <div className="bg-white border border-border rounded-xl shadow-sm p-4">
             <h2 className="font-bold text-neutral-900 mb-4 flex items-center gap-2"><FileText className="w-4 h-4 text-teal" /> Standard Compliance Reports</h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="border border-border rounded-lg p-3 hover:bg-neutral-50 cursor-pointer transition-colors flex items-center justify-between group">
                 <div>
                   <h3 className="font-bold text-sm text-neutral-900">Monthly E-Waste Audit</h3>
@@ -125,8 +125,8 @@ export default function Reports() {
               <span className="text-xs font-semibold text-neutral-500">Showing top 5 rows</span>
             </div>
             
-            <div className="flex-1 overflow-auto p-4">
-              <table className="w-full text-left border-collapse">
+            <div className="flex-1 overflow-x-auto p-4 w-full">
+              <table className="w-full text-left border-collapse min-w-[600px]">
                 <thead>
                   <tr className="border-b border-border text-xs uppercase tracking-wider text-neutral-500 bg-white">
                     <th className="py-2 pr-4 font-semibold">TRX ID</th>

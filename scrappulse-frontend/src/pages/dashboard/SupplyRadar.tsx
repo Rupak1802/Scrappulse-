@@ -14,12 +14,12 @@ export default function SupplyRadar() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-neutral-900">Supply Radar</h1>
           <p className="text-neutral-500">Live E-Waste Weather & Forecasting</p>
         </div>
-        <div className="flex gap-2 bg-neutral-100 p-1 rounded-lg">
+        <div className="flex gap-2 bg-neutral-100 p-1 rounded-lg overflow-x-auto w-full md:w-auto">
           {['All Materials', 'Copper', 'PCBs', 'Aluminium'].map(m => (
             <button key={m} className={cn("px-4 py-1.5 text-sm font-semibold rounded-md transition-colors", m === 'All Materials' ? 'bg-white shadow-sm' : 'text-neutral-500 hover:text-neutral-900')}>
               {m}
@@ -29,14 +29,14 @@ export default function SupplyRadar() {
       </div>
 
       {/* KPI Row */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <KPICard icon={<Zap className="text-amber-500" />} title="Active Pulses" value="12" trend="+3 vs yesterday" trendUp={true} />
         <KPICard icon={<Activity className="text-blue-500" />} title="7-Day Predict" value="4.2 Tons" trend="+15% vs last week" trendUp={true} />
         <KPICard icon={<ShieldCheck className="text-teal" />} title="Avg Reliability" value="94%" trend="Stable" trendUp={true} />
         <KPICard icon={<AlertTriangle className="text-red-500" />} title="Open Anomalies" value="5" trend="-2 resolved today" trendUp={true} />
       </div>
 
-      <div className="flex gap-6 h-[400px]">
+      <div className="flex flex-col lg:flex-row gap-6 h-auto lg:h-[400px]">
         {/* Map Area */}
         <div className="flex-1 bg-white border border-border rounded-xl shadow-sm overflow-hidden flex flex-col relative">
           <div className="p-4 border-b border-border bg-neutral-50 flex items-center justify-between">
@@ -55,7 +55,7 @@ export default function SupplyRadar() {
 
         {/* Side Panel */}
         {selectedZone && (
-          <div className="w-96 bg-white border border-border rounded-xl shadow-sm flex flex-col overflow-hidden animate-in slide-in-from-right-4">
+          <div className="w-full lg:w-96 bg-white border border-border rounded-xl shadow-sm flex flex-col overflow-hidden animate-in slide-in-from-right-4 shrink-0">
             <div className="p-4 border-b border-border bg-navy text-white">
               <h3 className="font-bold text-lg">{selectedZone} <span className="text-teal text-sm font-medium ml-2">Forecast</span></h3>
             </div>
@@ -110,9 +110,10 @@ export default function SupplyRadar() {
           <h3 className="font-bold text-neutral-900 flex items-center gap-2"><Zap className="w-4 h-4 text-amber-500" /> Active Pulses (Live)</h3>
           <button className="flex items-center gap-2 text-sm font-semibold text-teal hover:underline"><Download className="w-4 h-4" /> Export CSV</button>
         </div>
-        <table className="w-full text-left border-collapse">
-          <thead>
-            <tr className="border-b border-border text-xs uppercase tracking-wider text-neutral-500 bg-white">
+        <div className="overflow-x-auto w-full">
+          <table className="w-full text-left border-collapse min-w-[600px]">
+            <thead>
+              <tr className="border-b border-border text-xs uppercase tracking-wider text-neutral-500 bg-white">
               <th className="p-4 font-semibold">Locality</th>
               <th className="p-4 font-semibold">Material</th>
               <th className="p-4 font-semibold">Signal Strength</th>
@@ -147,6 +148,7 @@ export default function SupplyRadar() {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );

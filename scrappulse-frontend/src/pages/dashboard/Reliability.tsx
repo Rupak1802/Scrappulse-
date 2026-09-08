@@ -30,7 +30,7 @@ export default function Reliability() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white border border-border rounded-xl shadow-sm p-6 flex items-center justify-between">
           <div>
             <p className="text-sm font-semibold text-neutral-500 uppercase">Avg Collector Score</p>
@@ -54,7 +54,7 @@ export default function Reliability() {
         </div>
       </div>
 
-      <div className="flex gap-6 h-[500px]">
+      <div className="flex flex-col md:flex-row gap-6 h-auto md:h-[500px]">
         
         {/* Leaderboard Table */}
         <div className="flex-[2] bg-white border border-border rounded-xl shadow-sm flex flex-col overflow-hidden">

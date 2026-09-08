@@ -41,7 +41,7 @@ export default function Fleet() {
         <p className="text-neutral-500">Maximize load efficiency and minimize transit time</p>
       </div>
 
-      <div className="grid grid-cols-[350px_1fr] gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-[350px_1fr] gap-6">
         {/* Input Panel */}
         <div className="bg-white border border-border rounded-xl shadow-sm overflow-hidden flex flex-col h-[600px]">
           <div className="p-4 border-b border-border bg-neutral-50">
@@ -95,7 +95,7 @@ export default function Fleet() {
         <div className="flex flex-col gap-4">
           <h2 className="font-bold text-neutral-900">Generated Candidates</h2>
           
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Recommended Route */}
             <div className="bg-white border-2 border-teal rounded-xl shadow-md overflow-hidden relative group">
               <div className="absolute top-0 right-0 bg-teal text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg shadow-sm flex items-center gap-1">
@@ -188,8 +188,9 @@ export default function Fleet() {
         <div className="p-4 border-b border-border bg-neutral-50 flex items-center justify-between">
           <h2 className="font-bold text-neutral-900 flex items-center gap-2"><Truck className="w-4 h-4 text-teal" /> Active & Past Routes</h2>
         </div>
-        <table className="w-full text-left border-collapse">
-          <thead>
+        <div className="overflow-x-auto w-full">
+          <table className="w-full text-left border-collapse min-w-[600px]">
+            <thead>
             <tr className="border-b border-border text-xs uppercase tracking-wider text-neutral-500 bg-white">
               <th className="p-4 font-semibold">Route ID / Truck</th>
               <th className="p-4 font-semibold">Stops</th>
@@ -228,6 +229,7 @@ export default function Fleet() {
             </tr>
           </tbody>
         </table>
+        </div>
       </div>
 
       {/* Confirmation Modal */}
