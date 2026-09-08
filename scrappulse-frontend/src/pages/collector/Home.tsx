@@ -2,6 +2,8 @@ import { Camera, Map, TrendingUp, AlertCircle, Sparkles, Scale, BookOpen, Chevro
 import { RadialBarChart, RadialBar, ResponsiveContainer, LineChart, Line, YAxis, XAxis, Tooltip, CartesianGrid } from 'recharts';
 import { Link } from 'react-router-dom';
 import { useAppStore } from '../../store';
+import LanguageSwitcher from '../../components/common/LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
 const opportunityData = [{ name: 'Score', value: 82, fill: '#0d9488' }]; // teal-600
 const earningsData = [
@@ -10,6 +12,7 @@ const earningsData = [
 ];
 
 export default function Home() {
+  const { t } = useTranslation();
   const { activePulsesCount } = useAppStore();
 
   return (
@@ -21,13 +24,11 @@ export default function Home() {
             <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Avatar" className="w-full h-full object-cover" />
           </div>
           <div>
-            <h2 className="text-xl lg:text-3xl font-black text-neutral-900 leading-tight mb-1">Hi, Ramesh 👋</h2>
-            <p className="text-sm lg:text-base text-neutral-500 font-medium">Andheri East Zone</p>
+            <h2 className="text-xl lg:text-3xl font-black text-neutral-900 leading-tight mb-1">{t('home.greeting')}</h2>
+            <p className="text-sm lg:text-base text-neutral-500 font-medium">{t('home.zone')}</p>
           </div>
         </div>
-        <div className="bg-white/60 backdrop-blur-md px-3 py-1.5 rounded-lg text-xs lg:text-sm font-bold text-neutral-600 border border-white shadow-sm">
-          EN / HI
-        </div>
+        <LanguageSwitcher />
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6">
@@ -43,12 +44,12 @@ export default function Home() {
                   <Zap className="w-6 h-6 text-amber-600 fill-amber-600 animate-pulse" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-black text-amber-900 mb-1">High Demand: Copper Wire</h3>
+                  <h3 className="text-xl font-black text-amber-900 mb-1">{t('home.highDemand')}</h3>
                   <p className="text-sm text-amber-800 leading-relaxed mb-4 max-w-md">
-                    Recyclers in MIDC are paying <span className="font-bold bg-amber-200/50 px-1.5 py-0.5 rounded-md backdrop-blur-sm">+15% above average</span> today.
+                    {t('home.demandSub')}
                   </p>
                   <Link to="/collector/opportunity-map" className="inline-flex items-center gap-1.5 text-sm font-bold text-amber-900 bg-amber-300/80 backdrop-blur-sm hover:bg-amber-300 px-5 py-2.5 rounded-xl transition-colors shadow-sm">
-                    See Opportunity Map <ChevronRight className="w-4 h-4" />
+                    {t('home.seeMap')} <ChevronRight className="w-4 h-4" />
                   </Link>
                 </div>
               </div>
@@ -65,8 +66,8 @@ export default function Home() {
               <Camera className="w-10 h-10 lg:w-12 lg:h-12 text-white" />
             </div>
             <div className="text-center lg:text-left relative z-10">
-              <h2 className="text-2xl lg:text-3xl font-black mb-1 lg:mb-2 text-white">Snap & Sell</h2>
-              <p className="text-primary-green-50 text-sm lg:text-base font-medium">Get an instant AI valuation for your scrap</p>
+              <h2 className="text-2xl lg:text-3xl font-black mb-1 lg:mb-2 text-white">{t('home.snapSell')}</h2>
+              <p className="text-primary-green-50 text-sm lg:text-base font-medium">{t('home.snapSellSub')}</p>
             </div>
             <div className="hidden lg:flex ml-auto w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full items-center justify-center border border-white/10 relative z-10 group-hover:bg-white/20 transition-colors">
               <ChevronRight className="w-6 h-6 text-white" />
@@ -77,7 +78,7 @@ export default function Home() {
             {/* Opportunity Score */}
             <div className="bg-white/60 backdrop-blur-xl border border-white/60 rounded-3xl p-6 shadow-[0_8px_32px_rgba(0,0,0,0.04)] flex flex-col items-center text-center relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-teal-500/5 rounded-full blur-2xl" />
-              <h3 className="text-sm lg:text-base font-bold text-neutral-500 w-full text-left mb-2 relative z-10">Credit Score</h3>
+              <h3 className="text-sm lg:text-base font-bold text-neutral-500 w-full text-left mb-2 relative z-10">{t('home.creditScore')}</h3>
               <div className="h-32 lg:h-40 w-full relative z-10">
                 <ResponsiveContainer width="100%" height="100%">
                   <RadialBarChart cx="50%" cy="50%" innerRadius="70%" outerRadius="100%" barSize={12} data={opportunityData} startAngle={180} endAngle={0}>
@@ -91,14 +92,14 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <p className="text-xs lg:text-sm font-bold text-teal-700 mt-2 bg-teal-500/10 backdrop-blur-sm px-4 py-2 rounded-xl relative z-10 border border-teal-500/10">Status: Excellent</p>
+              <p className="text-xs lg:text-sm font-bold text-teal-700 mt-2 bg-teal-500/10 backdrop-blur-sm px-4 py-2 rounded-xl relative z-10 border border-teal-500/10">{t('home.statusExcellent')}</p>
             </div>
 
             {/* Weekly Earnings Area Chart */}
             <div className="bg-white/60 backdrop-blur-xl border border-white/60 rounded-3xl p-6 shadow-[0_8px_32px_rgba(0,0,0,0.04)] flex flex-col relative overflow-hidden">
               <div className="absolute bottom-0 left-0 w-48 h-48 bg-emerald-500/5 rounded-full blur-2xl" />
               <div className="flex items-start justify-between w-full mb-2 relative z-10">
-                <h3 className="text-sm lg:text-base font-bold text-neutral-500">Weekly Earnings</h3>
+                <h3 className="text-sm lg:text-base font-bold text-neutral-500">{t('home.weeklyEarnings')}</h3>
                 <span className="bg-emerald-500/10 backdrop-blur-sm text-emerald-600 border border-emerald-500/20 px-2.5 py-1 rounded-lg text-xs font-black flex items-center gap-1 shadow-sm">
                   <TrendingUp className="w-3.5 h-3.5" /> +12%
                 </span>
@@ -130,8 +131,8 @@ export default function Home() {
           {/* Best Recycler Card */}
           <div>
             <div className="flex items-center justify-between mb-4 px-1">
-              <h3 className="font-black text-neutral-900 text-lg">Best Recycler Near You</h3>
-              <Link to="/collector/recyclers" className="text-sm font-bold text-teal-600 hover:text-teal-700 transition-colors">View all</Link>
+              <h3 className="font-black text-neutral-900 text-lg">{t('home.bestRecycler')}</h3>
+              <Link to="/collector/recyclers" className="text-sm font-bold text-teal-600 hover:text-teal-700 transition-colors">{t('home.viewAll')}</Link>
             </div>
             <div className="bg-white/60 backdrop-blur-xl border border-white/60 rounded-3xl p-6 shadow-[0_8px_32px_rgba(0,0,0,0.04)] flex items-center justify-between group cursor-pointer hover:bg-white/80 transition-all hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
               <div>
@@ -141,11 +142,11 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col gap-2 text-sm text-neutral-500 font-medium">
                   <span className="flex items-center gap-2"><Map className="w-4 h-4 text-neutral-400" /> 2.4 km away</span>
-                  <span className="flex items-center gap-2"><AlertCircle className="w-4 h-4 text-teal-600" /> 98% Reliable Payouts</span>
+                  <span className="flex items-center gap-2"><AlertCircle className="w-4 h-4 text-teal-600" /> {t('home.reliablePayouts')}</span>
                 </div>
               </div>
               <div className="text-right shrink-0 ml-4 flex flex-col items-end">
-                <div className="text-[10px] font-black text-neutral-400 uppercase tracking-widest mb-1">Mixed E-Waste</div>
+                <div className="text-[10px] font-black text-neutral-400 uppercase tracking-widest mb-1">{t('home.mixedEwaste')}</div>
                 <div className="text-xl font-black text-teal-600 bg-teal-500/10 px-3 py-1.5 rounded-xl border border-teal-500/10 backdrop-blur-sm">₹68/kg</div>
               </div>
             </div>
@@ -153,17 +154,17 @@ export default function Home() {
 
           {/* Quick Shortcuts */}
           <div>
-            <h3 className="font-black text-neutral-900 text-lg mb-4 px-1">Quick Actions</h3>
+            <h3 className="font-black text-neutral-900 text-lg mb-4 px-1">{t('home.quickActions')}</h3>
             <div className="grid grid-cols-3 gap-3 lg:gap-4">
-              <ShortcutCard to="/collector/simulator" icon={<TrendingUp className="text-blue-500 w-6 h-6" />} label="Simulator" color="bg-blue-500/10" border="border-blue-500/20" />
-              <ShortcutCard to="/collector/fair-deal" icon={<Scale className="text-purple-500 w-6 h-6" />} label="FairDeal" color="bg-purple-500/10" border="border-purple-500/20" />
-              <ShortcutCard to="/collector/profile" icon={<BookOpen className="text-orange-500 w-6 h-6" />} label="Guide" color="bg-orange-500/10" border="border-orange-500/20" />
+              <ShortcutCard to="/collector/simulator" icon={<TrendingUp className="text-blue-500 w-6 h-6" />} label={t('home.simulator')} color="bg-blue-500/10" border="border-blue-500/20" />
+              <ShortcutCard to="/collector/fair-deal" icon={<Scale className="text-purple-500 w-6 h-6" />} label={t('home.fairDeal')} color="bg-purple-500/10" border="border-purple-500/20" />
+              <ShortcutCard to="/collector/profile" icon={<BookOpen className="text-orange-500 w-6 h-6" />} label={t('home.guide')} color="bg-orange-500/10" border="border-orange-500/20" />
             </div>
           </div>
 
           {/* Recent Activity */}
           <div>
-            <h3 className="font-black text-neutral-900 text-lg mb-4 px-1">Recent Activity</h3>
+            <h3 className="font-black text-neutral-900 text-lg mb-4 px-1">{t('home.recentActivity')}</h3>
             <div className="bg-white/60 backdrop-blur-xl border border-white/60 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.04)] overflow-hidden">
               <ActivityRow material="15kg Copper Wire" recycler="MetalCorp" amount="₹4,200" status="Paid" date="Today" />
               <div className="border-t border-white/40" />

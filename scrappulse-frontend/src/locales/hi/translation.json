@@ -20,6 +20,27 @@
     "supplyRadar": "सप्लाई रडार",
     "settings": "सेटिंग्स"
   },
+  "home": {
+    "greeting": "नमस्ते, रमेश 👋",
+    "zone": "अंधेरी ईस्ट ज़ोन",
+    "highDemand": "उच्च मांग: तांबे का तार",
+    "demandSub": "MIDC में रिसाइकिलर आज औसत से +15% अधिक भुगतान कर रहे हैं।",
+    "seeMap": "अवसर मानचित्र देखें",
+    "snapSell": "तस्वीर लें और बेचें",
+    "snapSellSub": "अपने कबाड़ का तुरंत AI मूल्यांकन प्राप्त करें",
+    "creditScore": "क्रेडिट स्कोर",
+    "statusExcellent": "स्थिति: उत्कृष्ट",
+    "weeklyEarnings": "साप्ताहिक आय",
+    "bestRecycler": "आपके पास सर्वश्रेष्ठ रिसाइकिलर",
+    "viewAll": "सभी देखें",
+    "mixedEwaste": "मिश्रित ई-कचरा",
+    "reliablePayouts": "98% विश्वसनीय भुगतान",
+    "quickActions": "त्वरित क्रियाएं",
+    "simulator": "सिम्युलेटर",
+    "fairDeal": "फेयरडील",
+    "guide": "मार्गदर्शक",
+    "recentActivity": "हाल की गतिविधि"
+  },
   "supplyRadar": {
     "title": "सप्लाई रडार",
     "subtitle": "लाइव ई-कचरा मौसम और पूर्वानुमान",

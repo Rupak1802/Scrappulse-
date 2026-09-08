@@ -20,6 +20,27 @@
     "supplyRadar": "Supply Radar",
     "settings": "Settings"
   },
+  "home": {
+    "greeting": "Hi, Ramesh 👋",
+    "zone": "Andheri East Zone",
+    "highDemand": "High Demand: Copper Wire",
+    "demandSub": "Recyclers in MIDC are paying +15% above average today.",
+    "seeMap": "See Opportunity Map",
+    "snapSell": "Snap & Sell",
+    "snapSellSub": "Get an instant AI valuation for your scrap",
+    "creditScore": "Credit Score",
+    "statusExcellent": "Status: Excellent",
+    "weeklyEarnings": "Weekly Earnings",
+    "bestRecycler": "Best Recycler Near You",
+    "viewAll": "View all",
+    "mixedEwaste": "Mixed E-Waste",
+    "reliablePayouts": "98% Reliable Payouts",
+    "quickActions": "Quick Actions",
+    "simulator": "Simulator",
+    "fairDeal": "FairDeal",
+    "guide": "Guide",
+    "recentActivity": "Recent Activity"
+  },
   "supplyRadar": {
     "title": "Supply Radar",
     "subtitle": "Live E-Waste Weather & Forecasting",
